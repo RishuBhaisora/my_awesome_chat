@@ -1,11 +1,11 @@
 import { FC, memo } from "react";
-import FriendRow, { friendRow } from "./FriendRow";
+import FriendRow, { friendRowType } from "./FriendRow";
 
-export type friendList = { friends: friendRow[] };
-const FriendList: FC<friendList> = memo(({ friends }) => {
+export type friendListType = { friends: friendRowType[] };
+const FriendList: FC<friendListType> = memo(({ friends }) => {
   return (
     <div className="p-3">
-      {friends.map((item: friendRow) => (
+      {friends.map((item: friendRowType) => (
         <FriendRow image={item.image} message={item.message} name={item.name} />
       ))}
     </div>
