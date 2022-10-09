@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import FriendsPage from "./components/Friends-Page/FriendsPage";
+import FriendsPage from "./components/friends-page/FriendsPage";
 import MainLayout from "./MainLayout";
-import { mockFriends } from "./Mock-Data/mock-friends";
+import { mockFriends } from "./mock-data/mock-friends";
 
 function App() {
   return (
