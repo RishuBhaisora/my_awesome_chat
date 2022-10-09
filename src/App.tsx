@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import ModalPage from "./components/Modal-Page/ModalPage";
+import FriendList from "./components/Friends-Page/FriendList";
+import { mockFriends } from "./Mock-Data/mock-friends";
 function App() {
   return (
     <Routes>
-      <Route index element={<ModalPage />} />
+      <Route index element={<FriendList friends={mockFriends} />} />
     </Routes>
   );
 }
