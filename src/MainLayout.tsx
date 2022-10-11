@@ -6,7 +6,7 @@ type MainLayoutProps = {};
 
 const MainLayout: FC<MainLayoutProps> = (MainLayoutProps) => {
   return (
-    <div className="bg-gray-500 overflow-hidden">
+    <div className="bg-gray-300 overflow-hidden">
       <ControlBarComponent />
       <div className="md:relative left-32 ">
         <Outlet />

@@ -1,4 +1,5 @@
 import { FC, memo } from "react";
+import { useNavigate } from "react-router";
 import Avatar from "../../shared-resources/avatar/Avatar";
 
 export type friendRowType = {
@@ -7,8 +8,13 @@ export type friendRowType = {
   message: string;
 };
 const FriendRow: FC<friendRowType> = memo(({ image, name, message }) => {
+  let navigate = useNavigate();
+
   return (
-    <div className="flex py-4 border-slate-400 border-b-2 items-center">
+    <div
+      onClick={() => navigate("/message/friends/dummy")}
+      className="flex py-4 border-slate-400 border-b-2 items-center"
+    >
       <Avatar src={image} size="large" />
       <div className="ml-5">
         <h1 className="text-lg font-bold">{name}</h1>

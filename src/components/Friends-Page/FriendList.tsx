@@ -5,8 +5,13 @@ export type friendListType = { friends: friendRowType[] };
 const FriendList: FC<friendListType> = memo(({ friends }) => {
   return (
     <div className=" w-full ">
-      {friends.map((item: friendRowType) => (
-        <FriendRow image={item.image} message={item.message} name={item.name} />
+      {friends.map((item: friendRowType, i: number) => (
+        <FriendRow
+          key={i}
+          image={item.image}
+          message={item.message}
+          name={item.name}
+        />
       ))}
     </div>
   );

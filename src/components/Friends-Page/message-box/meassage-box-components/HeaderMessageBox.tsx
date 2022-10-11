@@ -13,8 +13,8 @@ const HeaderMessageBox: FC<HeaderMessageBoxProps> = (HeaderMessageBoxProps) => {
           src="https://www.whatsappimages.in/wp-content/uploads/2021/06/HD-New-Beautiful-Unique-Profile-Images-Pictures.gif"
         />
         <div>
-          <h3>{"Ramesh Khan"}</h3>
-          <h6>{"online"}</h6>
+          <h3 className="font-bold">{"Ramesh Khan"}</h3>
+          <h6 className="font-light">{"online"}</h6>
         </div>
       </div>
       <NodeIndexOutlined style={{ fontSize: "32px" }} />
