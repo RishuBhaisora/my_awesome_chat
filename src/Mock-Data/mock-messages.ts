@@ -20,4 +20,34 @@ export const mockMessages = [
   { message: "Hello", type: "send" },
   { message: "Hello", type: "send" },
   { message: "Hello", type: "send" },
+  {
+    message:
+      "Yes dfdf efeer rtgrdt tuyuig thtu uy tuytjtg htjuyjugty jyyjytgj yjyujyj  u yht tty",
+    type: "recieve",
+  },
+  {
+    message:
+      "Yes dfdf efeer rtgrdt tuyuig thtu uy tuytjtg htjuyjugty jyyjytgj yjyujyj  u yht tty",
+    type: "recieve",
+  },
+  {
+    message:
+      "Yes dfdf efeer rtgrdt tuyuig thtu uy tuytjtg htjuyjugty jyyjytgj yjyujyj  u yht tty",
+    type: "recieve",
+  },
+  {
+    message:
+      "Yes dfdf efeer rtgrdt tuyuig thtu uy tuytjtg htjuyjugty jyyjytgj yjyujyj  u yht tty",
+    type: "recieve",
+  },
+  {
+    message:
+      "Yes dfdf efeer rtgrdt tuyuig thtu uy tuytjtg htjuyjugty jyyjytgj yjyujyj  u yht tty",
+    type: "recieve",
+  },
+  {
+    message:
+      "Yes dfdf efeer rtgrdt tuyuig thtu uy tuytjtg htjuyjugty jyyjytgj yjyujyj  u yht tty",
+    type: "recieve",
+  },
 ];

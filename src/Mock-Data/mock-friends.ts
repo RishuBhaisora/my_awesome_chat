@@ -1,6 +1,4 @@
-import { friendRowType } from "../components/friends-page/FriendRow";
-
-export const mockFriends: friendRowType[] = [
+export const mockFriends = [
   {
     image:
       "https://www.whatsappimages.in/wp-content/uploads/2021/06/HD-New-Beautiful-Unique-Profile-Images-Pictures.gif",

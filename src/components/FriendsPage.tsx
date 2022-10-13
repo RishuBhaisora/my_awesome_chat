@@ -2,7 +2,7 @@ import { FC, memo, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 import FriendList, { friendListType } from "./FriendList";
 import "./friends-page.scss";
-import MessageBox from "./message-box/MessageBox";
+import MessageBox from "./Friends-Page/message-box/MessageBox";
 
 const FriendsPage: FC<friendListType> = memo(({ friends }) => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -17,17 +17,20 @@ const FriendsPage: FC<friendListType> = memo(({ friends }) => {
   });
 
   return (
-    <>
-      {width > 768 ? (
-        <div className="flex">
-          <FriendList friends={friends} />
-          <MessageBox />
+    <div className="friends-page-wrapper">
+      <div>
+        {width > 768 ? (
+          <input className="input-search" />
+        ) : (
+          <h1 className="m-5">"COMING SOON"</h1>
+        )}
+        <div className="friends-list">
+          {width > 768 ? <FriendList friends={friends} /> : <Outlet />}
         </div>
-      ) : (
-        <Outlet />
-      )}
-    </>
+      </div>
+      {width > 768 && <MessageBox />}
+    </div>
   );
 });
 
-export default memo(FriendsPage);
+export default FriendsPage;

@@ -3,18 +3,17 @@ import { useNavigate } from "react-router";
 import Avatar from "../../shared-resources/avatar/Avatar";
 
 export type friendRowType = {
-  id: string;
   image: string;
   name: string;
   message: string;
 };
-const FriendRow: FC<friendRowType> = memo(({ id, image, name, message }) => {
+const FriendRow: FC<friendRowType> = memo(({ image, name, message }) => {
   let navigate = useNavigate();
 
   return (
     <div
-      onClick={() => navigate(`/message/friends/${id}`)}
-      className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
+      onClick={() => navigate("/message/friends/dummy")}
+      className="flex py-4 border-slate-400 border-b-2 items-center"
     >
       <Avatar src={image} size="large" />
       <div className="ml-5">
