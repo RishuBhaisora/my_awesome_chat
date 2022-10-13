@@ -1,7 +1,6 @@
 import { FC, memo, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router";
 import FriendList, { friendListType } from "./FriendList";
-import "./friends-page.scss";
 import MessageBox from "./message-box/MessageBox";
 
 const FriendsPage: FC<friendListType> = memo(({ friends }) => {
