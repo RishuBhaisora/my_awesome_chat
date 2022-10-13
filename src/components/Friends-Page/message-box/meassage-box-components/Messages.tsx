@@ -2,7 +2,7 @@ import { Typography } from "antd";
 import { FC, memo } from "react";
 import { mockMessages } from "../../../../Mock-Data/mock-messages";
 
-import "./messages.scss";
+import "./Messages.scss";
 
 type MessagesProps = {};
 
