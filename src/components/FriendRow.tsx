@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import { useNavigate } from "react-router";
-import Avatar from "../../shared-resources/avatar/Avatar";
+import Avatar from "../shared-resources/avatar/Avatar";
 
 export type friendRowType = {
   image: string;
