@@ -29,7 +29,10 @@ const ControlBarComponent: FC<ControlBarComponentProps> = (
             onClick={() => navigate("/message/friends")}
           />
           <NotificationOutlined className="text-white" />
-          <SettingOutlined className="text-white" />
+          <SettingOutlined
+            onClick={() => navigate("/settings")}
+            className="text-white"
+          />
         </div>
 
         <LogoutOutlined className="text-white" />

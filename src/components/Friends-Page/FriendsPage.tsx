@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router";
-import FriendList, { friendListType } from "./FriendList";
+import { Outlet } from "react-router";
 import MessageBox from "./message-box/MessageBox";
+import FriendList, { friendListType } from "./FriendList";
 
 const FriendsPage: FC<friendListType> = memo(({ friends }) => {
   const [width, setWidth] = useState(window.innerWidth);
