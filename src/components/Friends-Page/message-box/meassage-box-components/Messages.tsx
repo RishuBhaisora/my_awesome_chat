@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import { FC, memo } from "react";
-import { mockMessages } from "../../../../mock-data/mock-messages";
+import { mockMessages } from "../../../../Mock-Data/mock-messages";
 
 import "./Messages.scss";
 

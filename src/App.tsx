@@ -1,13 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import FriendList from "./components/friends-page/FriendList";
-import FriendsPage from "./components/friends-page/FriendsPage";
+import FriendList from "./components/Friends-Page/FriendList";
+import FriendsPage from "./components/Friends-Page/FriendsPage";
 import MessageBox from "./components/Friends-Page/message-box/MessageBox";
 import SettingsPage from "./components/settings-page/SettingsPage";
 import LoginPage from "./components/signup-login-page/LoginPage";
 import SignUpLogin from "./components/signup-login-page/SignUpLogin";
 import SignUpPage from "./components/signup-login-page/SignUpPage";
 import MainLayout from "./MainLayout";
-import { mockFriends } from "./mock-data/mock-friends";
+import { mockFriends } from "./Mock-Data/mock-friends";
 
 function App() {
   return (
