@@ -15,7 +15,7 @@ type ProfileSettingsProps = {};
 
 const ProfileSettings: FC<ProfileSettingsProps> = (props) => {
   return (
-    <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 overflow-y-auto">
+    <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 md:overflow-y-auto">
       <h1 className="font-bold text-md md:text-lg ">Profile Settings</h1>
       <div className="flex md:space-x-10 space-x-5 pb-8 border-b-2 border-gray-300">
         <div className="p-1">
@@ -33,7 +33,7 @@ const ProfileSettings: FC<ProfileSettingsProps> = (props) => {
           </h2>
         </div>
       </div>
-      <div className="mt-10 md:pl-8 pl-5 ">
+      <div className="mt-10 md:pl-4 pl-2 ">
         <IconsWrapper title="Profile.">
           <FaUserCircle />
         </IconsWrapper>

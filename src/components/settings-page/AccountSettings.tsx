@@ -17,9 +17,9 @@ type AccountSettingsProps = {};
 
 const AccountSettings: FC<AccountSettingsProps> = (props) => {
   return (
-    <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 overflow-y-auto">
-      <h1 className="font-bold text-md md:text-lg pl-2">Account Settings</h1>
-      <div className="mt-10  pl-8 ">
+    <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 md:overflow-y-auto">
+      <h1 className="font-bold text-md md:text-lg">Account Settings</h1>
+      <div className="mt-10 md:pl-4 pl-2">
         <IconsWrapper title="Account.">
           <ImKey />
         </IconsWrapper>

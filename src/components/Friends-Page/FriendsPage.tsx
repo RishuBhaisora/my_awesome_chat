@@ -17,7 +17,7 @@ const FriendsPage: FC<friendListType> = memo(({ friends }) => {
 
   return (
     <>
-      {width > 768 ? (
+      {width >= 768 ? (
         <div className="flex">
           <FriendList friends={friends} />
           <MessageBox />

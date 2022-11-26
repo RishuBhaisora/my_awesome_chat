@@ -1,14 +1,13 @@
 import { Typography } from "antd";
 import { FC, memo } from "react";
 import { mockMessages } from "../../../../Mock-Data/mock-messages";
-
 import "./Messages.scss";
 
 type MessagesProps = {};
 
 const Messages: FC<MessagesProps> = (MessagesProps) => {
   return (
-    <div className="bg-white w-full h-full overflow-y-scroll md:px-6">
+    <div className="bg-white w-full h-full overflow-y-auto md:px-6">
       {mockMessages.map((m, i) => {
         let typeClass = "";
         if (m.type === "send") {

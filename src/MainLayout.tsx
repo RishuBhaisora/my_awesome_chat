@@ -6,7 +6,7 @@ type MainLayoutProps = {};
 
 const MainLayout: FC<MainLayoutProps> = (MainLayoutProps) => {
   return (
-    <div className="bg-slate-400 h-screen">
+    <div className="bg-slate-300 h-screen">
       <ControlBarComponent />
       <div className="md:w-5/6 md:absolute md:right-0">
         <Outlet />
