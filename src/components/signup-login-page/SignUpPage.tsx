@@ -3,6 +3,7 @@ import { FC, memo } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import Input from "../../shared-resources/FieldComp";
+import AuthServices from "../../services/AuthServices";
 type SignUpPageProps = {};
 
 const SignUpPage: FC<SignUpPageProps> = (props) => {
@@ -13,16 +14,16 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
       .min(8, "Too Short!")
       .max(12, "Too Long!")
       .required("Required"),
-    confirm: Yup.string()
-      .min(8, "Too Short!")
-      .max(12, "Too Long!")
-      .required("Required"),
+    // confirm: Yup.string()
+    //   .min(8, "Too Short!")
+    //   .max(12, "Too Long!")
+    //   .required("Required"),
   });
   const handleSubmit = (
-    values: { email: string; password: string },
+    values: { email: string; password: string,name:string },
     action: any
   ) => {
-    console.log(values, action);
+    AuthServices.registerUser(values.name,values.email,values.password)
     action.resetForm();
     navigate("/user");
   };
@@ -39,7 +40,7 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
           name: "",
           email: "",
           password: "",
-          confirm: "",
+          // confirm: "",
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, action) => {
@@ -78,14 +79,14 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
                 />
                 <span className="p-1" />
                 <ErrorMessage name="password" />
-                <Input
+                {/* <Input
                   label="Confirm Password"
                   type="password"
                   name="confirm"
                   placeholder="Confirm Password"
                 />
                 <span className="p-1" />
-                <ErrorMessage name="confirm" />
+                <ErrorMessage name="confirm" /> */}
               </div>
               <div className="flex justify-center p-8">
                 <button
