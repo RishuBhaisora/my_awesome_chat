@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import { Outlet } from "react-router";
-import ControlBarComponent from "./components/control bar/ControlBarComponent";
+import ControlBarComponent from "../components/control bar/ControlBarComponent";
 
 type MainLayoutProps = {};
 

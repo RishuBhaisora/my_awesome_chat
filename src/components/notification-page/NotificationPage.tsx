@@ -1,7 +1,7 @@
 import { BellFilled, BellTwoTone } from "@ant-design/icons";
 import { FC, memo } from "react";
-import FriendListSearch from "../components/Friends-Page/FriendListSearch";
-import { notifications } from "../Mock-Data/notifications";
+import FriendListSearch from "../Friends-Page/FriendListSearch";
+import { notifications } from "../../Mock-Data/notifications";
 import NotificationRow from "./NotificationRow";
 
 type NotificationPageProps = {};
