@@ -6,9 +6,9 @@ import SettingsPage from "./components/settings-page/SettingsPage";
 import LoginPage from "./components/signup-login-page/LoginPage";
 import SignUpLogin from "./components/signup-login-page/SignUpLogin";
 import SignUpPage from "./components/signup-login-page/SignUpPage";
-import MainLayout from "./MainLayout";
+import MainLayout from "./pages/MainLayout";
 import { mockFriends } from "./Mock-Data/mock-friends";
-import NotificationPage from "./notification-page/NotificationPage";
+import NotificationPage from "./components/notification-page/NotificationPage";
 
 function App() {
   return (
