@@ -1,12 +1,11 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { FC, memo } from "react";
+import { memo } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import Input from "../../shared-resources/FieldComp";
-import AuthServices from "../../services/AuthServices";
-type SignUpPageProps = {};
+import authService from "../../services/authService";
 
-const SignUpPage: FC<SignUpPageProps> = (props) => {
+const SignUpPage = () => {
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
@@ -14,16 +13,15 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
       .min(8, "Too Short!")
       .max(12, "Too Long!")
       .required("Required"),
-    // confirm: Yup.string()
-    //   .min(8, "Too Short!")
-    //   .max(12, "Too Long!")
-    //   .required("Required"),
+    confirm: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .required("Required"),
   });
   const handleSubmit = (
-    values: { email: string; password: string,name:string },
+    values: { email: string; password: string; name: string },
     action: any
   ) => {
-    AuthServices.registerUser(values.name,values.email,values.password)
+    authService.registerUser(values.name, values.email, values.password);
     action.resetForm();
     navigate("/user");
   };
@@ -40,7 +38,7 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
           name: "",
           email: "",
           password: "",
-          // confirm: "",
+          confirm: "",
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, action) => {
@@ -48,10 +46,6 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
         }}
       >
         {(props) => {
-          {
-            // console.log(props);
-          }
-
           return (
             <Form>
               <div className="">
@@ -79,14 +73,14 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
                 />
                 <span className="p-1" />
                 <ErrorMessage name="password" />
-                {/* <Input
+                <Input
                   label="Confirm Password"
                   type="password"
                   name="confirm"
                   placeholder="Confirm Password"
                 />
                 <span className="p-1" />
-                <ErrorMessage name="confirm" /> */}
+                <ErrorMessage name="confirm" />
               </div>
               <div className="flex justify-center p-8">
                 <button
@@ -104,6 +98,5 @@ const SignUpPage: FC<SignUpPageProps> = (props) => {
     </div>
   );
 };
-SignUpPage.defaultProps = {};
 
 export default memo(SignUpPage);
