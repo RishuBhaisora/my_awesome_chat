@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { friendSelector } from './appSelectors'
+import { friendSelector } from '.'
 
 export const getFriendsSelector = createSelector(
   [friendSelector],
