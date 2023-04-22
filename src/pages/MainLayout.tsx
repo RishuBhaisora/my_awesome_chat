@@ -1,10 +1,8 @@
-import { FC, memo } from "react";
+import { memo } from "react";
 import { Outlet } from "react-router";
 import ControlBarComponent from "../components/control bar/ControlBarComponent";
 
-type MainLayoutProps = {};
-
-const MainLayout: FC<MainLayoutProps> = (MainLayoutProps) => {
+const MainLayout = () => {  
   return (
     <div className="bg-slate-300 h-screen">
       <ControlBarComponent />
@@ -14,7 +12,5 @@ const MainLayout: FC<MainLayoutProps> = (MainLayoutProps) => {
     </div>
   );
 };
-
-MainLayout.defaultProps = {};
 
 export default memo(MainLayout);

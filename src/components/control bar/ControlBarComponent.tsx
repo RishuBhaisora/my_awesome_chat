@@ -5,15 +5,19 @@ import {
   MessageOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { FC, memo } from "react";
+import {  memo } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../../redux/actions/authActions";
 
-type ControlBarComponentProps = {};
-
-const ControlBarComponent: FC<ControlBarComponentProps> = (
-  ControlBarComponentProps
+const ControlBarComponent = (
 ) => {
-  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logoutAction());
+  };
 
   return (
     <div className="md:left-0 w-full md:w-1/6 md:h-full absolute bottom-0 md:p-5">
@@ -38,12 +42,10 @@ const ControlBarComponent: FC<ControlBarComponentProps> = (
           />
         </div>
 
-        <LogoutOutlined onClick={() => navigate("/")} className="text-white" />
+        <LogoutOutlined onClick={handleLogout} className="text-white" />
       </div>
     </div>
   );
 };
-
-ControlBarComponent.defaultProps = {};
 
 export default memo(ControlBarComponent);

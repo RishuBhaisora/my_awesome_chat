@@ -1,12 +1,13 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { FC, memo } from "react";
-import { useNavigate } from "react-router";
+import { memo } from "react";
 import * as Yup from "yup";
 import Input from "../../shared-resources/FieldComp";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../redux/actions/authActions";
 
-type LoginPageProps = {};
+const LoginPage = () => {
+  const dispatch = useDispatch();
 
-const LoginPage: FC<LoginPageProps> = (props) => {
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -14,16 +15,9 @@ const LoginPage: FC<LoginPageProps> = (props) => {
       .max(12, "Too Long!")
       .required("Required"),
   });
-  const handleSubmit = (
-    values: { email: string; password: string },
-    action: any
-  ) => {
-    console.log(values, action);
-    action.resetForm();
-    navigate("/user");
+  const handleSubmit = (values: { email: string; password: string }) => {
+    dispatch(loginAction(values));
   };
-
-  let navigate = useNavigate();
 
   return (
     <div className=" ">
@@ -36,15 +30,11 @@ const LoginPage: FC<LoginPageProps> = (props) => {
           password: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values, action) => {
-          handleSubmit(values, action);
+        onSubmit={(values) => {
+          handleSubmit(values);
         }}
       >
         {(props) => {
-          {
-            // console.log(props);
-          }
-
           return (
             <Form>
               <div className="">
@@ -84,7 +74,5 @@ const LoginPage: FC<LoginPageProps> = (props) => {
     </div>
   );
 };
-
-LoginPage.defaultProps = {};
 
 export default memo(LoginPage);
