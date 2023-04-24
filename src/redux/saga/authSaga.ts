@@ -14,7 +14,7 @@ export function* loginSaga(action: {
     yield put(loginCompletedAction(data));
   } catch (e: any) {
     
-    yield put(loginErrorAction(e.message));
+    yield put(loginErrorAction(e));
   }
 }
 
