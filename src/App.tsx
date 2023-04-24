@@ -16,10 +16,12 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   isTokenExpiredSelector,
   loggedInUserSelector,
+  loginLoadingSelector,
 } from "./redux/selectors/authSelectors";
 import { useEffect, useState } from "react";
 import { loginAction } from "./redux/actions/authActions";
 import AuthPage from "./pages/AuthPage";
+import Loader from "./shared-resources/Loader";
 
 function App() {
   const location = useLocation();
@@ -29,11 +31,13 @@ function App() {
   const isTokenExpired = useSelector(isTokenExpiredSelector);
   const queryParams = new URLSearchParams(location.search);
   const redirectUrl = queryParams.get("redirectUrl");
+  const loginLoading = useSelector(loginLoadingSelector);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isTokenExpired) {
       localStorage.removeItem("token");
-      navigate("/login?redirectUrl=" + location.pathname)
+      navigate("/login?redirectUrl=" + location.pathname);
     }
   }, [isTokenExpired]);
 
@@ -41,6 +45,7 @@ function App() {
 
   useEffect(() => {
     if (!loggedInUser && token) {
+      setLoading(true);
       dispatch(loginAction({ token }));
     } else if (!loggedInUser) {
       const currentPath = location.pathname;
@@ -50,8 +55,16 @@ function App() {
         navigate("/login?redirectUrl=" + currentPath);
       }
     }
+    setLoading(false);
   }, [loggedInUser, location.pathname, token]);
 
+  if (loading || loginLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader/>
+      </div>
+    );
+  }
   return (
     <Routes>
       {loggedInUser ? (
