@@ -12,16 +12,12 @@ export class authService {
       });
       return response;
     } catch (error: any) {
-      throw error;
+      console.log(error);
+
+      return error;
     }
   }
-  async login(payload: LoginAction) {
-    try {
-      return await axios.post(`${BASE_URL}/login`, payload);
-    } catch (error: any) {
-      throw error.response.data;
-    }
-  }
+  login = (payload: LoginAction) => axios.post(`${BASE_URL}/login`, payload);
 }
 
 export default new authService();
