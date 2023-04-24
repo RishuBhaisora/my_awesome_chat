@@ -15,7 +15,7 @@ export function* loginSaga(action: {
     yield put(loginCompletedAction(data));
   } catch (e: any) {
     const error = get(e, ["response", "data"]);
-    yield put(loginErrorAction(e));
+    yield put(loginErrorAction(error));
   }
 }
 
