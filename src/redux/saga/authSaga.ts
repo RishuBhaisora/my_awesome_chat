@@ -3,6 +3,7 @@ import { LOGIN } from "../actions/actionConstants";
 import authService from "../../services/authService";
 import { LoginAction } from "../../modals/authModals";
 import { loginCompletedAction, loginErrorAction } from "../actions/authActions";
+import { get } from "lodash";
 
 export function* loginSaga(action: {
   type: "LOGIN";
@@ -13,7 +14,7 @@ export function* loginSaga(action: {
     localStorage.setItem("token", data.token);
     yield put(loginCompletedAction(data));
   } catch (e: any) {
-    
+    const error = get(e, ["response", "data"]);
     yield put(loginErrorAction(e));
   }
 }
