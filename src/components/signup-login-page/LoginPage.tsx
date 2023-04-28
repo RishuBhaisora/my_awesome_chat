@@ -1,12 +1,14 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { memo } from "react";
+import { memo, useState } from "react";
 import * as Yup from "yup";
 import Input from "../../shared-resources/FieldComp";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../redux/actions/authActions";
+import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -48,9 +50,13 @@ const LoginPage = () => {
                 <ErrorMessage name="email" />
                 <Input
                   label="Pasword"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
+                  endIcon={showPassword ? EyeInvisibleTwoTone : EyeTwoTone}
+                  onEndIconClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
                 />
                 <span className="p-1" />
                 <ErrorMessage name="password" />
