@@ -93,8 +93,7 @@ function App() {
           <Route path="*" element={<Navigate to={redirectUrl ?? "/user"} />} />
         </>
       ) : (
-        <Route path="*" element={<AuthPage />}></Route>
-      )}
+        <Route path="*" element={<AuthPage />}/>      )}
     </Routes>
   );
 }

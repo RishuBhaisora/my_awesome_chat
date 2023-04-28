@@ -1,11 +1,15 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import Input from "../../shared-resources/FieldComp";
 import authService from "../../services/authService";
+import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 
 const SignUpPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
@@ -67,17 +71,27 @@ const SignUpPage = () => {
                 <ErrorMessage name="email" />
                 <Input
                   label="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Password"
+                  endIcon={showPassword ? EyeInvisibleTwoTone : EyeTwoTone}
+                  onEndIconClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
                 />
                 <span className="p-1" />
                 <ErrorMessage name="password" />
                 <Input
                   label="Confirm Password"
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   name="confirm"
                   placeholder="Confirm Password"
+                  endIcon={
+                    showConfirmPassword ? EyeInvisibleTwoTone : EyeTwoTone
+                  }
+                  onEndIconClick={() => {
+                    setShowConfirmPassword(!showConfirmPassword);
+                  }}
                 />
                 <span className="p-1" />
                 <ErrorMessage name="confirm" />
