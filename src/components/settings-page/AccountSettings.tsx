@@ -11,7 +11,7 @@ import {
 } from "react-icons/md";
 import { VscColorMode } from "react-icons/vsc";
 
-import IconsWrapper from "../../shared-resources/avatar/IconsWrapper";
+import IconsWrapper from "../../shared-resources/components/IconsWrapper";
 
 type AccountSettingsProps = {};
 

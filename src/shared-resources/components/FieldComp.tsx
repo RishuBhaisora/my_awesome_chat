@@ -1,13 +1,12 @@
 import { Field } from "formik";
 import { FC, memo } from "react";
-import Button from "./avatar/Button";
 
 type InputProps = {
   type: string;
   name: string;
   placeholder: string;
   label: string;
-  endIcon?: any;
+    endIcon?: any;
   onEndIconClick?: () => void;
 };
 
@@ -20,9 +19,7 @@ const FieldComp: FC<InputProps> = (props) => {
 
       <Field className="w-full border-2 p-2 focus:outline-none" {...props} />
       {EndIcon && (
-        <button type="button" onClick={onEndIconClick}>
-          <EndIcon className="absolute top-[65%] left-[90%]" />
-        </button>
+          <EndIcon onClick={onEndIconClick} className="absolute top-[65%] left-[90%]" />
       )}
     </div>
   );

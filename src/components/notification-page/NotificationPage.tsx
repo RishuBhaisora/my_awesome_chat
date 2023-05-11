@@ -1,14 +1,12 @@
-import { BellFilled, BellTwoTone } from "@ant-design/icons";
-import { FC, memo } from "react";
+import { memo } from "react";
 import FriendListSearch from "../Friends-Page/FriendListSearch";
 import { notifications } from "../../Mock-Data/notifications";
 import NotificationRow from "./NotificationRow";
+import Container from "../../shared-resources/components/Container";
 
-type NotificationPageProps = {};
-
-const NotificationPage: FC<NotificationPageProps> = (props) => {
+const NotificationPage = () => {
   return (
-    <div className="md:pr-6 md:pt-6 md:pb-6 h-screen pb-10">
+    <Container>
       <div className="w-full h-full md:rounded-lg flex flex-col justify-between">
         <FriendListSearch />
         <div className="h-full md:px-4 bg-white overflow-y-auto md:rounded-lg">
@@ -17,10 +15,8 @@ const NotificationPage: FC<NotificationPageProps> = (props) => {
           })}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
-
-NotificationPage.defaultProps = {};
 
 export default memo(NotificationPage);

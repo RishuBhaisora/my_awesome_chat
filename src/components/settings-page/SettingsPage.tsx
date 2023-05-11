@@ -1,12 +1,11 @@
-import { FC, memo } from "react";
+import { memo } from "react";
 import AccountSettings from "./AccountSettings";
 import ProfileSettings from "./ProfileSettings";
-
-type SettingsPageProps = {};
-
-const SettingsPage: FC<SettingsPageProps> = (props) => {
+import Container from "../../shared-resources/components/Container";
+ 
+const SettingsPage = () => {
   return (
-    <div className="md:p-6 h-screen overflow-hidden">
+    <Container className="overflow-hidden">
       <div className="p-2 md:p-0">
         <input className="md:pl-5 rounded-lg w-full h-[6vh]" />
       </div>
@@ -14,10 +13,8 @@ const SettingsPage: FC<SettingsPageProps> = (props) => {
         <ProfileSettings />
         <AccountSettings />
       </div>
-    </div>
+    </Container>
   );
 };
-
-SettingsPage.defaultProps = {};
 
 export default memo(SettingsPage);

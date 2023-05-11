@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { SiLivechat } from "react-icons/si";
 import { ImShare2 } from "react-icons/im";
-import IconsWrapper from "../../shared-resources/avatar/IconsWrapper";
+import IconsWrapper from "../../shared-resources/components/IconsWrapper";
 import { MdOutlineWallpaper } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 

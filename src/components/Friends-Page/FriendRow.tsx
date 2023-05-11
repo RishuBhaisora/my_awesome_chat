@@ -13,7 +13,7 @@ const FriendRow: FC<friendRowType> = memo(({ id, image, name, message }) => {
 
   return (
     <div
-      onClick={() => navigate(`/user/message/friends/${id}`)}
+      onClick={() => navigate(`/user/friends/message/${id}`)}
       className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
     >
       <Avatar src={image} size="large" />

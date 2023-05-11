@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
-import Button from "../../shared-resources/avatar/Button";
+import Button from "../../shared-resources/components/Button";
 
 const SignUpLogin = () => {
   let navigate = useNavigate();

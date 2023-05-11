@@ -21,7 +21,8 @@ import {
 import { useEffect, useState } from "react";
 import { loginAction } from "./redux/actions/authActions";
 import AuthPage from "./pages/AuthPage";
-import Loader from "./shared-resources/Loader";
+import Loader from "./shared-resources/components/Loader";
+import HomePage from "./components/home-page/HomePage";
 
 function App() {
   const location = useLocation();
@@ -69,28 +70,29 @@ function App() {
     <Routes>
       {loggedInUser ? (
         <>
-          <Route
-            path="/user"
-            element={<Navigate to={"/user/message/friends"} />}
+        <Route
+            path="/"
+            element={<Navigate to={"/home"} />}
           />
-          <Route path="/user" element={<MainLayout />}>
+          <Route path="/" element={<MainLayout />}>
+          <Route path="/home" element={<HomePage />}/>
             <Route path="/user/settings" element={<SettingsPage />} />
             <Route path="/user/notification" element={<NotificationPage />} />
             <Route
-              path="/user/message"
+              path="/user/friends"
               element={<FriendsPage friends={mockFriends as any} />}
             >
               <Route
-                path="/user/message/friends"
+                path="/user/friends/message"
                 element={<FriendList friends={mockFriends as any} />}
               />
               <Route
-                path="/user/message/friends/:id"
+                path="/user/friends/message/:id"
                 element={<MessageBox />}
               />
             </Route>
           </Route>
-          <Route path="*" element={<Navigate to={redirectUrl ?? "/user"} />} />
+          <Route path="*" element={<Navigate to={redirectUrl ?? "/"} />} />
         </>
       ) : (
         <Route path="*" element={<AuthPage />}/>      )}
