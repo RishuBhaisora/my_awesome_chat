@@ -1,30 +1,21 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { Outlet } from "react-router";
 import FriendList, { friendListType } from "./FriendList";
 import MessageBox from "./message-box/MessageBox";
+import ResponsiveContainer from "../../shared-resources/components/ResponsiveContainer";
 
 const FriendsPage: FC<friendListType> = memo(({ friends }) => {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  });
-
   return (
     <>
-      {width >= 768 ? (
-        <div className="flex">
+      <div className="md:flex hidden">
+        <ResponsiveContainer className="flex">
           <FriendList friends={friends} />
           <MessageBox />
-        </div>
-      ) : (
+        </ResponsiveContainer>
+      </div>
+      <div className="md:hidden flex">
         <Outlet />
-      )}
+      </div>
     </>
   );
 });

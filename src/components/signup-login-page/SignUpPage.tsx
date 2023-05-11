@@ -2,7 +2,7 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { memo, useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
-import Input from "../../shared-resources/FieldComp";
+import Input from "../../shared-resources/components/FieldComp";
 import authService from "../../services/authService";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 

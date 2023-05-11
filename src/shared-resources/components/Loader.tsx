@@ -7,7 +7,7 @@ interface LoaderProps {
 const Loader: FC<LoaderProps> = ({ size }) => {
   const fontSize = size === "small" ? 28 : size === "medium" ? 35 : 47;
   const antIcon = (
-    <LoadingOutlined style={{ fontSize, color: "#3375f9" }} spin />
+    <LoadingOutlined style={{ fontSize, color: "#1A66FF" }} spin />
   );
 
   return <Spin indicator={antIcon} />;

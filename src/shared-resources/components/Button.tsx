@@ -24,6 +24,5 @@ const Button: FC<ButtonProps> = ({ text, onClick, clicked }) => {
   );
 };
 
-Button.defaultProps = {};
 
 export default memo(Button);
