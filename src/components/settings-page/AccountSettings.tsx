@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import {  memo } from "react";
 import { FaClipboardCheck, FaExchangeAlt, FaGlobe } from "react-icons/fa";
 import { ImKey } from "react-icons/im";
 import { BsFillBellFill } from "react-icons/bs";
@@ -13,9 +13,8 @@ import { VscColorMode } from "react-icons/vsc";
 
 import IconsWrapper from "../../shared-resources/components/IconsWrapper";
 
-type AccountSettingsProps = {};
 
-const AccountSettings: FC<AccountSettingsProps> = (props) => {
+const AccountSettings = () => {
   return (
     <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 md:overflow-y-auto">
       <h1 className="font-bold text-md md:text-lg">Account Settings</h1>
@@ -58,6 +57,5 @@ const AccountSettings: FC<AccountSettingsProps> = (props) => {
   );
 };
 
-AccountSettings.defaultProps = {};
 
 export default memo(AccountSettings);

@@ -2,12 +2,12 @@ import { FC, ReactNode, memo } from "react";
 import cx from "classnames";
 import { useWidth } from "../../hooks/useWidth";
 
-interface ContainerProps {
+interface ResponsiveContainerProps {
   className?: string;
   children: ReactNode;
 }
 
-const Container: FC<ContainerProps> = ({ className, children }) => {
+const ResponsiveContainer: FC<ResponsiveContainerProps> = ({ className, children }) => {
   const width = useWidth();
   return (
     <div
@@ -26,4 +26,4 @@ const Container: FC<ContainerProps> = ({ className, children }) => {
   );
 };
 
-export default memo(Container);
+export default memo(ResponsiveContainer);

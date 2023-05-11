@@ -17,7 +17,7 @@ const FriendList: FC<friendListType> = memo(({ friends }) => {
   }, []);
 
   return (
-    <div className="xl:w-[45%] lg:w-[60%] w-full md:pr-[34px] pr-0">
+    <div className="xl:w-[45%] lg:w-[60%] w-full md:h-full h-screen md:pr-[34px] pr-0 md:pb-0 pb-16">
       <div className="w-full h-full md:rounded-lg flex flex-col justify-between">
         <FriendListSearch />
         <div className="w-full h-full bg-white overflow-y-auto md:rounded-lg">
