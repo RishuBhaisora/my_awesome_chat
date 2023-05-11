@@ -1,7 +1,7 @@
-import { FC, memo } from "react";
+import {  memo } from "react";
 import { SiLivechat } from "react-icons/si";
 import { ImShare2 } from "react-icons/im";
-import IconsWrapper from "../../shared-resources/avatar/IconsWrapper";
+import IconsWrapper from "../../shared-resources/components/IconsWrapper";
 import { MdOutlineWallpaper } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 
@@ -11,9 +11,8 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 
-type ProfileSettingsProps = {};
 
-const ProfileSettings: FC<ProfileSettingsProps> = (props) => {
+const ProfileSettings = () => {
   return (
     <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 md:overflow-y-auto">
       <h1 className="font-bold text-md md:text-lg ">Profile Settings</h1>
@@ -60,6 +59,5 @@ const ProfileSettings: FC<ProfileSettingsProps> = (props) => {
   );
 };
 
-ProfileSettings.defaultProps = {};
 
 export default memo(ProfileSettings);

@@ -1,7 +1,7 @@
 import { ErrorMessage, Form, Formik } from "formik";
 import { memo, useState } from "react";
 import * as Yup from "yup";
-import Input from "../../shared-resources/FieldComp";
+import Input from "../../shared-resources/components/FieldComp";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../redux/actions/authActions";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
@@ -22,7 +22,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className=" ">
+    <div>
       <h1 className="flex justify-center text-[#2167f4] mb-10 font-bold text-4xl">
         LOGIN
       </h1>
