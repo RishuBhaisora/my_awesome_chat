@@ -7,7 +7,7 @@ const MessageBox = () => {
 
   return (
     <div className="w-full md:h-full h-screen md:pb-0 pb-16" >
-      <div className="w-full h-full bg-white md:rounded-lg flex flex-col justify-between ">
+      <div className="w-full h-full bottom-shadow  bg-white md:rounded-[20px] flex flex-col justify-between ">
         <HeaderMessageBox />
         <Messages />
         <BottomMessageBox />
