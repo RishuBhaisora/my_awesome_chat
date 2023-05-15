@@ -1,4 +1,4 @@
-import {  memo } from "react";
+import { memo } from "react";
 import { FaClipboardCheck, FaExchangeAlt, FaGlobe } from "react-icons/fa";
 import { ImKey } from "react-icons/im";
 import { BsFillBellFill } from "react-icons/bs";
@@ -12,11 +12,18 @@ import {
 import { VscColorMode } from "react-icons/vsc";
 
 import IconsWrapper from "../../shared-resources/components/IconsWrapper";
-
+import { useWidth } from "../../hooks/useWidth";
+import cx from "classnames";
 
 const AccountSettings = () => {
+  const width = useWidth();
   return (
-    <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 md:overflow-y-auto">
+    <div
+      className={cx(
+        "bg-white h-full md:w-1/2   md:rounded-[20px] p-5 md:overflow-y-auto",
+        { "bottom-shadow": width > 768 }
+      )}
+    >
       <h1 className="font-bold text-md md:text-lg">Account Settings</h1>
       <div className="mt-10 md:pl-4 pl-2">
         <IconsWrapper title="Account.">
@@ -56,6 +63,5 @@ const AccountSettings = () => {
     </div>
   );
 };
-
 
 export default memo(AccountSettings);
