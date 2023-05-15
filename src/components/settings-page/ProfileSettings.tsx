@@ -1,4 +1,4 @@
-import {  memo } from "react";
+import { memo } from "react";
 import { SiLivechat } from "react-icons/si";
 import { ImShare2 } from "react-icons/im";
 import IconsWrapper from "../../shared-resources/components/IconsWrapper";
@@ -10,11 +10,18 @@ import {
   EditFilled,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
-
+import { useWidth } from "../../hooks/useWidth";
+import cx from "classnames";
 
 const ProfileSettings = () => {
+  const width = useWidth();
   return (
-    <div className="bg-white h-full md:w-1/2 md:rounded-md p-5 md:overflow-y-auto">
+    <div
+      className={cx(
+        "bg-white h-full md:w-1/2  md:rounded-[20px] p-5 md:overflow-y-auto",
+        { "bottom-shadow": width > 768 }
+      )}
+    >
       <h1 className="font-bold text-md md:text-lg ">Profile Settings</h1>
       <div className="flex md:space-x-10 space-x-5 pb-8 border-b-2 border-gray-300">
         <div className="p-1">
@@ -58,6 +65,5 @@ const ProfileSettings = () => {
     </div>
   );
 };
-
 
 export default memo(ProfileSettings);
