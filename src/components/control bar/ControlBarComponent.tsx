@@ -58,7 +58,7 @@ const ControlBarComponent = () => {
 
         <LogoutOutlined
           onClick={handleLogout}
-          className="text-white md:text-2xl text-lg"
+          className="text-white md:text-2xl text-lg mr-3 mb-[2px]"
         />
       </div>
     </div>

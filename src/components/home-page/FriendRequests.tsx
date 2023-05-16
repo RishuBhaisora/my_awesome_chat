@@ -113,7 +113,7 @@ const FriendList = memo(() => {
   };
 
   return (
-    <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full h-screen md:pr-[34px] pr-0 md:pb-0 pb-16">
+    <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full h-screen md:pr-[34px] pr-0 md:pb-0 pb-16 overflow-hidden">
       <div className="w-full h-full md:rounded-lg flex flex-col justify-between">
         <div className="md:flex flex-col hidden">
           <CustomSearch
@@ -128,11 +128,11 @@ const FriendList = memo(() => {
         {renderMenu()}
         <div
           className={cx(
-            "bottom-shadow w-full md:h-[40%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11  relative",
+            "bottom-shadow w-full md:h-[40%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11 md:relative",
             { "md:flex flex-col hidden ": searchFor !== "friendRequests" }
           )}
         >
-          <div className="absolute top-2 left-6 text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
             Friend Requests
           </div>
 
@@ -150,11 +150,11 @@ const FriendList = memo(() => {
         </div>
         <div
           className={cx(
-            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11 relative",
+            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11 md:relative",
             { "md:flex flex-col hidden": searchFor !== "sentRequests" }
           )}
         >
-          <div className="absolute top-2 left-6 text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
             Sent Requests
           </div>
 
@@ -172,12 +172,12 @@ const FriendList = memo(() => {
         </div>
         <div
           className={cx(
-            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11 relative",
+            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11 md:relative",
             { "flex flex-col ": searchFor === "suggestedFriends" },
             { "hidden ": searchFor !== "suggestedFriends" }
           )}
         >
-          <div className="absolute top-2 left-6 text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
             Suggested Friends
           </div>
 
@@ -195,12 +195,12 @@ const FriendList = memo(() => {
         </div>
         <div
           className={cx(
-            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11  relative",
+            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 md:pt-16 pt-11 md:relative",
             { "flex flex-col ": searchFor === "friends" },
             { "hidden ": searchFor !== "friends" }
           )}
         >
-          <div className="absolute top-2 left-6 text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
            Friends
           </div>
 
