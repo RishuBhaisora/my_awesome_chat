@@ -38,7 +38,7 @@ const CustomSearch: FC<CustomSearchType> = ({
 
       <input
         placeholder="Search"
-        className=" outline-none w-full h-[6vh] bottom-shadow pr-[45px] pl-[55px] rounded-[20px] bg-white"
+        className=" outline-none w-full h-[45px] bottom-shadow pr-[45px] pl-[55px] rounded-[20px] bg-white"
       />
     </div>
   );
