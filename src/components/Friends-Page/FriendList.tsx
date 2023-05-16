@@ -61,11 +61,11 @@ const FriendList: FC<friendListType> = memo(({ friends }) => {
         {renderMenu()}
         <div
           className={cx(
-            "bottom-shadow w-full md:h-[40%] h-[88%] bg-white  md:rounded-[20px] p-4 pt-11 relative",
+            "bottom-shadow w-full md:h-[40%] h-[88%] bg-white  md:rounded-[20px] p-4 pt-11 md:relative",
             { "md:flex flex-col hidden ": searchFor !== "recentChats" }
           )}
         >
-          <div className="absolute top-2 left-6 text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
             Recent Chats
           </div>
 
@@ -83,11 +83,11 @@ const FriendList: FC<friendListType> = memo(({ friends }) => {
         </div>
         <div
           className={cx(
-            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 pt-11 relative",
+            "bottom-shadow w-full md:h-[45%] h-[88%] bg-white  md:rounded-[20px] p-4 pt-11 md:relative",
             { "md:flex flex-col hidden": searchFor !== "friends" }
           )}
         >
-          <div className="absolute top-2 left-6 text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
             Friends
           </div>
 
