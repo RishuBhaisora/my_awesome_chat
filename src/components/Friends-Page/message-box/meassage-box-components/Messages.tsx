@@ -7,7 +7,7 @@ type MessagesProps = {};
 
 const Messages: FC<MessagesProps> = (MessagesProps) => {
   return (
-    <div className="bg-white w-full h-full overflow-y-auto md:px-6">
+    <div className="bg-white w-full h-full overflow-y-auto md:px-6 md:pt-0 pt-[85px]">
       {mockMessages.map((m, i) => {
         let typeClass = "";
         if (m.type === "send") {
@@ -28,6 +28,5 @@ const Messages: FC<MessagesProps> = (MessagesProps) => {
   );
 };
 
-Messages.defaultProps = {};
 
 export default memo(Messages);
