@@ -6,7 +6,7 @@ type HeaderMessageBoxProps = {};
 
 const HeaderMessageBox: FC<HeaderMessageBoxProps> = (HeaderMessageBoxProps) => {
   return (
-    <div className="flex items-start justify-between mx-2 md:mx-8 py-4 md:py-6 border-b-2 border-slate-400">
+    <div className="flex items-start justify-between  md:mx-8 py-4 md:py-6 border-b-2 border-slate-400 md:relative fixed bg-white md:bottom-0 md:top-[0px] w-full md:w-auto mx-0  p-[15px] md:p-0 ">
       <div className="flex space-x-6">
         <Avatar
           size="large"
