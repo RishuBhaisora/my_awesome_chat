@@ -7,15 +7,13 @@ import cx from "classnames";
 import { useWidth } from "../../../hooks/useWidth";
 
 const MessageBox = () => {
-  const height = useHeight();
   const width = useWidth();
 
-  const heightClass = `h-[${height - 156}px]`;
   return (
-    <div className={"w-full md:h-full md:pb-0 pb-16 " + heightClass}>
+    <div className={"w-full h-full md:pb-0 pb-16 "}>
       <div
         className={cx(
-          "w-full md:h-full h-[92%]  bg-white md:rounded-[20px] flex flex-col justify-between ",
+          "w-full h-full bg-white md:rounded-[20px] flex flex-col justify-between ",
           { "bottom-shadow": width > 768 }
         )}
       >
@@ -26,6 +24,5 @@ const MessageBox = () => {
     </div>
   );
 };
-
 
 export default memo(MessageBox);
