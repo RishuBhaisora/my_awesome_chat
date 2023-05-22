@@ -113,8 +113,8 @@ const FriendList = memo(() => {
   };
 
   return (
-    <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full h-screen md:pr-[34px] pr-0 md:pb-0 pb-16 overflow-hidden">
-      <div className="w-full h-full md:rounded-lg flex flex-col justify-between">
+    <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full  h-screen md:pr-[34px] pr-0 md:pb-0 pb-16 ">
+      <div className="w-full h-full md:rounded-lg flex flex-col justify-between md:gap-[15px]">
         <div className="md:flex flex-col hidden">
           <CustomSearch
             options={searchOptions}
