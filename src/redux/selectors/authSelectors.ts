@@ -3,7 +3,8 @@ import { authSelector } from ".";
 
 export const loginLoadingSelector = createSelector(
   [authSelector],
-  (friendState) => friendState.loading
+  (friendState) => friendState.loginLoading
+  
 );
 export const loggedInUserSelector = createSelector(
   [authSelector],
@@ -20,5 +21,11 @@ export const isTokenExpiredSelector = createSelector(
 export const loginTokenSelector = createSelector(
   [authSelector],
   (friendState) => friendState.token
+);
+
+export const signupLoadingSelector = createSelector(
+  [authSelector],
+  (friendState) => friendState.signupLoading
+  
 );
   
