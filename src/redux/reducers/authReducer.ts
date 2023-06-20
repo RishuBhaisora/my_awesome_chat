@@ -5,47 +5,36 @@ import {
   LOGIN_COMPLETED,
   LOGIN_ERROR,
   LOGOUT,
-  SIGNUP,
-  SIGNUP_COMPLETED
 } from "../actions/actionConstants";
 import { User } from "../../modals/authModals";
 
-export interface AuthState {
+export interface LoginState {
   loggedInUser?: User;
-  loginLoading: boolean;
+  loading: boolean;
   error?: string;
   token?: string;
   isTokenExpired: boolean;
-  signupLoading:boolean;
-  message:string;
-  success: boolean
 }
-
-const initialState: AuthState = {
-  loginLoading: false,
+const initialState: LoginState = {
+  loading: false,
   isTokenExpired: false,
-  signupLoading:false,
-  message:"",
-  success:false,
-  
 };
 
-
-export const authReducer: Reducer<AuthState> = (
-  state: AuthState = initialState,
+export const authReducer: Reducer<LoginState> = (
+  state: LoginState = initialState,
   action: any
 ) =>
-  produce(state, (draft: AuthState) => {
+  produce(state, (draft: LoginState) => {
     switch (action.type) {
       case LOGIN: {
-        draft.loginLoading = true;
+        draft.loading = true;
         break;
       }
       case LOGIN_COMPLETED: {
         draft.token = action.payload.token;
         draft.isTokenExpired = false;
         draft.loggedInUser = action.payload.user;
-        draft.loginLoading = false;
+        draft.loading = false;
         break;
       }
       case LOGIN_ERROR: {
@@ -54,23 +43,14 @@ export const authReducer: Reducer<AuthState> = (
         }
         draft.error = action.payload;
 
-        draft.loginLoading = false;
+        draft.loading = false;
         break;
       }
       case LOGOUT: {
         draft.loggedInUser = undefined;
         draft.token = undefined;
-        draft.loginLoading = false;
+        draft.loading = false;
         draft.error = undefined;
-        break;
-      }
-        case SIGNUP:{
-        draft.signupLoading=true;
-          console.log(draft.message)
-        break;
-      }
-      case SIGNUP_COMPLETED:{
-        draft.signupLoading=false;
         break;
       }
       default:

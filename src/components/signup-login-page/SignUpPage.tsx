@@ -3,16 +3,12 @@ import { memo, useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
-import { signupAction } from "../../redux/actions/authActions";
-//import authService from "../../services/authService";
+import authService from "../../services/authService";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
 
 const SignUpPage = () => {
-  const dispatch=useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
@@ -25,13 +21,14 @@ const SignUpPage = () => {
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Required"),
   });
-  
   const handleSubmit = (
-    values: { email: string; password: string; name: string,confirm:string;},)=> {
-dispatch(signupAction(values)) /*authService.registerUser(values.name, values.email, values.password);*/
-    //resetForm();
+    values: { email: string; password: string; name: string },
+    action: any
+  ) => {
+    authService.registerUser(values.name, values.email, values.password);
+    action.resetForm();
     navigate("/user");
- };
+  };
 
   let navigate = useNavigate();
 
@@ -48,8 +45,8 @@ dispatch(signupAction(values)) /*authService.registerUser(values.name, values.em
           confirm: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          handleSubmit(values);
+        onSubmit={(values, action) => {
+          handleSubmit(values, action);
         }}
       >
         {(props) => {
