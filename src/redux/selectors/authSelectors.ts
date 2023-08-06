@@ -3,22 +3,36 @@ import { authSelector } from ".";
 
 export const loginLoadingSelector = createSelector(
   [authSelector],
-  (friendState) => friendState.loading
+  (authState) => authState.loginLoading
+  
 );
 export const loggedInUserSelector = createSelector(
   [authSelector],
-  (friendState) => friendState.loggedInUser
+  (authState) => authState.loggedInUser
 );
 export const loginErrorSelector = createSelector(
   [authSelector],
-  (friendState) => friendState.error
+  (authState) => authState.error
 );
 export const isTokenExpiredSelector = createSelector(
   [authSelector],
-  (friendState) => friendState.isTokenExpired
+  (authState) => authState.isTokenExpired
 );
 export const loginTokenSelector = createSelector(
   [authSelector],
-  (friendState) => friendState.token
+  (authState) => authState.token
 );
+
+export const signupLoadingSelector = createSelector(
+  [authSelector],
+  (authState) => authState.signupLoading
+  
+);
+
+export const signupMessageSelector = createSelector(
+  [authSelector],
+  (authState) => authState.signupMessage
+  
+);
+
   

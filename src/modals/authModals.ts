@@ -14,3 +14,14 @@ export interface LoginCompletedAction {
   user: User;
   token: string;
 }
+
+export interface SignupAction {
+  name:string;
+  email:string;
+  password:string;
+  confirm:string;
+}
+export interface SignupCompleted{
+  message:string,
+  success:boolean
+}

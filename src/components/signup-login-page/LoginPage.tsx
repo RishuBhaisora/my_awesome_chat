@@ -1,14 +1,17 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../redux/actions/authActions";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
+import { notification } from "antd";
+import { signupMessageSelector } from "../../redux/selectors/authSelectors";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const signupMessage = useSelector(signupMessageSelector);
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -21,8 +24,23 @@ const LoginPage = () => {
     dispatch(loginAction(values));
   };
 
+  const [api, contextHolder] = notification.useNotification();
+
+  useEffect(() => {
+    if (signupMessage) {
+      api.open({
+        message: "SUCCESS",
+        description: signupMessage,
+        placement: "topRight",
+        duration: 5,
+      });
+    }
+  }, [signupMessage]);
+
   return (
     <div>
+      {contextHolder}
+
       <h1 className="flex justify-center text-[#2167f4] mb-10 font-bold text-4xl">
         LOGIN
       </h1>
