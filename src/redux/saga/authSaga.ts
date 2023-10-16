@@ -1,14 +1,14 @@
 import { all, call, takeLatest, put } from "@redux-saga/core/effects";
 import { LOGIN, SIGNUP } from "../actions/actionConstants";
-import authService from "../../services/authService";
 import { LoginAction, SignupAction } from "../../modals/authModals";
 import {
   loginCompletedAction,
   loginErrorAction,
   signupCompletedAction,
+  signupErrorAction,
 } from "../actions/authActions";
 import { get } from "lodash";
-import { notification } from "antd";
+import { authService } from "../../services/AuthService";
 
 export function* loginSaga(action: {
   type: "LOGIN";
@@ -32,7 +32,7 @@ export function* signupSaga(action: {
     const { data } = yield call(authService.signup, action.payload);
     yield put(signupCompletedAction(data));
   } catch (error) {
-    console.log(error, "error");
+    yield put(signupErrorAction(error));
   }
 }
 

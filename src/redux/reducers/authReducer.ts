@@ -5,8 +5,10 @@ import {
   LOGIN_COMPLETED,
   LOGIN_ERROR,
   LOGOUT,
+  REMOVE_SIGNUP_TOAST,
   SIGNUP,
   SIGNUP_COMPLETED,
+  SIGNUP_ERROR,
 } from "../actions/actionConstants";
 import { User } from "../../modals/authModals";
 
@@ -18,6 +20,7 @@ export interface AuthState {
   isTokenExpired: boolean;
   signupLoading: boolean;
   signupMessage?: string;
+  signupError?: string;
 }
 
 const initialState: AuthState = {
@@ -61,13 +64,23 @@ export const authReducer: Reducer<AuthState> = (
       }
       case SIGNUP: {
         draft.signupLoading = true;
-
         break;
       }
       case SIGNUP_COMPLETED: {
         draft.signupLoading = false;
         draft.signupMessage = action.payload.message;
+        break;
+      }
 
+      case SIGNUP_ERROR: {
+        draft.signupLoading = false;
+        draft.signupError = action.payload.message;
+        break;
+      }
+
+      case REMOVE_SIGNUP_TOAST: {
+        draft.signupMessage = undefined;
+        draft.signupError = undefined;
         break;
       }
       default:

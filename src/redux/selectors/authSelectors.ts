@@ -35,4 +35,10 @@ export const signupMessageSelector = createSelector(
   
 );
 
+
+export const signupErrorSelector = createSelector(
+  [authSelector],
+  (authState) => authState.signupError
+);
+
   
