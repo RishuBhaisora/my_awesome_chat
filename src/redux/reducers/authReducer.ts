@@ -5,36 +5,45 @@ import {
   LOGIN_COMPLETED,
   LOGIN_ERROR,
   LOGOUT,
+  REMOVE_SIGNUP_TOAST,
+  SIGNUP,
+  SIGNUP_COMPLETED,
+  SIGNUP_ERROR,
 } from "../actions/actionConstants";
 import { User } from "../../modals/authModals";
 
-export interface LoginState {
+export interface AuthState {
   loggedInUser?: User;
-  loading: boolean;
+  loginLoading: boolean;
   error?: string;
   token?: string;
   isTokenExpired: boolean;
+  signupLoading: boolean;
+  signupMessage?: string;
+  signupError?: string;
 }
-const initialState: LoginState = {
-  loading: false,
+
+const initialState: AuthState = {
+  loginLoading: false,
   isTokenExpired: false,
+  signupLoading: false,
 };
 
-export const authReducer: Reducer<LoginState> = (
-  state: LoginState = initialState,
+export const authReducer: Reducer<AuthState> = (
+  state: AuthState = initialState,
   action: any
 ) =>
-  produce(state, (draft: LoginState) => {
+  produce(state, (draft: AuthState) => {
     switch (action.type) {
       case LOGIN: {
-        draft.loading = true;
+        draft.loginLoading = true;
         break;
       }
       case LOGIN_COMPLETED: {
         draft.token = action.payload.token;
         draft.isTokenExpired = false;
         draft.loggedInUser = action.payload.user;
-        draft.loading = false;
+        draft.loginLoading = false;
         break;
       }
       case LOGIN_ERROR: {
@@ -43,14 +52,35 @@ export const authReducer: Reducer<LoginState> = (
         }
         draft.error = action.payload;
 
-        draft.loading = false;
+        draft.loginLoading = false;
         break;
       }
       case LOGOUT: {
         draft.loggedInUser = undefined;
         draft.token = undefined;
-        draft.loading = false;
+        draft.loginLoading = false;
         draft.error = undefined;
+        break;
+      }
+      case SIGNUP: {
+        draft.signupLoading = true;
+        break;
+      }
+      case SIGNUP_COMPLETED: {
+        draft.signupLoading = false;
+        draft.signupMessage = action.payload.message;
+        break;
+      }
+
+      case SIGNUP_ERROR: {
+        draft.signupLoading = false;
+        draft.signupError = action.payload.message;
+        break;
+      }
+
+      case REMOVE_SIGNUP_TOAST: {
+        draft.signupMessage = undefined;
+        draft.signupError = undefined;
         break;
       }
       default:

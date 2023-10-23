@@ -22,7 +22,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <>
       <h1 className="flex justify-center text-[#2167f4] mb-10 font-bold text-4xl">
         LOGIN
       </h1>
@@ -77,7 +77,7 @@ const LoginPage = () => {
           );
         }}
       </Formik>
-    </div>
+    </>
   );
 };
 

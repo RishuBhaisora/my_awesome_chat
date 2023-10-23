@@ -1,14 +1,22 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
-import authService from "../../services/authService";
+import { removeSignupToast, signupAction } from "../../redux/actions/authActions";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { signupErrorSelector, signupLoadingSelector, signupMessageSelector } from "../../redux/selectors/authSelectors";
+import { toastService } from "../../services/ToastService";
 
 const SignUpPage = () => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const signupMessage = useSelector(signupMessageSelector);
+  const signupError = useSelector(signupErrorSelector);
+  const signUpLoading = useSelector(signupLoadingSelector);
+
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
@@ -21,16 +29,37 @@ const SignUpPage = () => {
       .oneOf([Yup.ref("password"), null], "Passwords must match")
       .required("Required"),
   });
-  const handleSubmit = (
-    values: { email: string; password: string; name: string },
-    action: any
-  ) => {
-    authService.registerUser(values.name, values.email, values.password);
-    action.resetForm();
-    navigate("/user");
+
+  const handleSubmit = (values: {
+    email: string;
+    password: string;
+    name: string;
+    confirm: string;
+  }) => {
+    dispatch(signupAction(values));
   };
 
   let navigate = useNavigate();
+
+  
+  useEffect(() => {
+    if (signupMessage) {      
+      toastService.showSuccess(signupMessage);
+      setTimeout(() => {
+        dispatch(removeSignupToast());
+        navigate("/user");
+      }, 1000);
+    }
+  }, [signupMessage]);
+
+  useEffect(() => {
+    if (signupError) {      
+      toastService.showError(signupError);
+      setTimeout(() => {
+        dispatch(removeSignupToast());
+      }, 1000);
+    }
+  }, [signupError]);
 
   return (
     <div className=" ">
@@ -45,8 +74,8 @@ const SignUpPage = () => {
           confirm: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={(values, action) => {
-          handleSubmit(values, action);
+        onSubmit={(values) => {
+          handleSubmit(values);
         }}
       >
         {(props) => {
@@ -102,7 +131,7 @@ const SignUpPage = () => {
                   className="rounded-md p-2 px-3 text-white bg-[#2167f4] font-bold  "
                   type="submit"
                 >
-                  Submit
+                  {signUpLoading ? "Loading..." : "Submit"}
                 </button>
               </div>
             </Form>
