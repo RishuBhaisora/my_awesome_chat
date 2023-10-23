@@ -2,12 +2,12 @@ import axios from "axios";
 import { BASE_URL } from "./constants";
 import { LoginAction, SignupAction } from "../modals/authModals";
 
-class AuthService {
-  private static _instance: AuthService;
+class AuthServices{
+  private static _instance: AuthServices;
 
-  static getInstance(): AuthService {
+  static getInstance(): AuthServices {
     if (!this._instance) {
-      this._instance = new AuthService();
+      this._instance = new AuthServices();
     }
     return this._instance;
   }
@@ -18,4 +18,4 @@ class AuthService {
   
 }
 
-export const authService = AuthService.getInstance();
+export const authService = AuthServices.getInstance();
