@@ -4,11 +4,15 @@ import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../redux/actions/authActions";
+import { useNavigate } from "react-router";
+
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+
+  let navigate = useNavigate();
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -39,7 +43,7 @@ const LoginPage = () => {
         {(props) => {
           return (
             <Form>
-              <div className="">
+              <div>
                 <Input
                   label="Email"
                   type="email"
@@ -60,9 +64,15 @@ const LoginPage = () => {
                 />
                 <span className="p-1" />
                 <ErrorMessage name="password" />
-                <h1 className="text-cyan-600 text-right cursor-pointer">
-                  Forgot Password
-                </h1>
+                <div className="w-full flex justify-end items-center ">
+                  <button
+                    type="button"
+                    className="text-cyan-600 text-right cursor-pointer "
+                    onClick={() => navigate("/forgetPassword")}
+                  >
+                    Forgot Password
+                  </button>
+                </div>
               </div>
               <div className="flex justify-center pt-4">
                 <button

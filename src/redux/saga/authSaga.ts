@@ -1,14 +1,26 @@
 import { all, call, takeLatest, put } from "@redux-saga/core/effects";
-import { LOGIN, SIGNUP } from "../actions/actionConstants";
-import { LoginAction, SignupAction } from "../../modals/authModals";
+import {
+  LOGIN,
+  SIGNUP,
+  RESET_PASSWORD,
+  GET_RESET_PASSWORD_OTP,
+} from "../actions/actionConstants";
+import {
+  LoginAction,
+  SignupAction,
+  ResetPasswordOtpPayload,
+  ResetPasswordPayload 
+} from "../../modals/authModals";
 import {
   loginCompletedAction,
   loginErrorAction,
   signupCompletedAction,
   signupErrorAction,
+  resetPasswordSuccessAction,
+  resetPasswordErrorAction,
 } from "../actions/authActions";
-import { get } from "lodash";
 import { authService } from "../../services/AuthServices";
+import { getErrorMessage } from "../../utils/reduxUtils";
 
 export function* loginSaga(action: {
   type: "LOGIN";
@@ -19,7 +31,8 @@ export function* loginSaga(action: {
     localStorage.setItem("token", data.token);
     yield put(loginCompletedAction(data));
   } catch (e: any) {
-    const error = get(e, ["response", "data"]);
+    const error = getErrorMessage(e)
+    console.warn(error)
     yield put(loginErrorAction(error));
   }
 }
@@ -31,12 +44,44 @@ export function* signupSaga(action: {
   try {
     const { data } = yield call(authService.signup, action.payload);
     yield put(signupCompletedAction(data));
-  } catch (error) {
+  } catch (e: any) {
+    const error = getErrorMessage(e)
+    console.warn(error)
     yield put(signupErrorAction(error));
+  }
+}
+
+export function* forgetPasswordSaga(action: {
+  type: "GET_RESET_PASSWORD_OTP";
+  payload: ResetPasswordOtpPayload;
+}): any {
+  try {
+    const { data } = yield call(authService.forgetPassword, action.payload);
+    yield put(resetPasswordSuccessAction(data.message));
+  } catch (e: any) {
+    const error = getErrorMessage(e)
+    console.warn(error)
+    yield put(resetPasswordErrorAction(error))
+  }
+}
+
+export function* resetPasswordSaga(action: {
+  type: "RESET_PASSWORD";
+  payload: ResetPasswordPayload;
+}): any {
+  try {
+    const { data } = yield call(authService.resetPassword, action.payload);
+    yield put(resetPasswordSuccessAction(data.message));
+  } catch (e: any) {
+    const error = getErrorMessage(e)
+    console.warn(error)
+    yield put(resetPasswordErrorAction(error))
   }
 }
 
 export function* authSaga() {
   yield all([takeLatest(SIGNUP, signupSaga)]);
   yield all([takeLatest(LOGIN, loginSaga)]);
+  yield all([takeLatest(GET_RESET_PASSWORD_OTP, forgetPasswordSaga)]);
+  yield all([takeLatest(RESET_PASSWORD, resetPasswordSaga)]);
 }

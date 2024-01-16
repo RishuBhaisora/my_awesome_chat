@@ -16,12 +16,24 @@ export interface LoginCompletedAction {
 }
 
 export interface SignupAction {
-  name:string;
-  email:string;
-  password:string;
-  confirm:string;
+  name: string;
+  email: string;
+  password: string;
+  confirm: string;
 }
-export interface SignupCompleted{
-  message:string,
-  success:boolean
+
+export interface SignupCompleted {
+  message: string;
+  success: boolean;
 }
+
+export interface ResetPasswordPayload {
+  email: string;
+  otp: string;
+  newPassword: string;
+}
+
+export interface ResetPasswordOtpPayload {
+  email: string;
+}
+
