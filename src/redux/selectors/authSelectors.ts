@@ -41,4 +41,17 @@ export const signupErrorSelector = createSelector(
   (authState) => authState.signupError
 );
 
-  
+export const resetPasswordSuccessSelector = createSelector(
+  [authSelector],
+  (authState) => authState.resetPasswordSuccessMessage
+);
+
+export const resetPasswordErrorSelector = createSelector(
+  [authSelector],
+  (authState) => authState.resetPasswordErrorMessage
+);
+
+export const resetPasswordEmailSelector = createSelector(
+  [authSelector],
+  (authState) => authState.email
+);

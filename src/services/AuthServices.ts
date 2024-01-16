@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "./constants";
-import { LoginAction, SignupAction } from "../modals/authModals";
+import { LoginAction, SignupAction, ResetPasswordOtpPayload, ResetPasswordPayload } from "../modals/authModals";
+
 
 class AuthServices{
   private static _instance: AuthServices;
@@ -16,6 +17,12 @@ class AuthServices{
 
   login = (payload: LoginAction) => axios.post(`${BASE_URL}/login`, payload);
   
+  forgetPassword = (payload: ResetPasswordOtpPayload) => axios.post(`${BASE_URL}/requestPasswordResetOtp`, 
+  payload)
+
+  resetPassword = (payload: ResetPasswordPayload) => axios.post(`${BASE_URL}/resetPassword`,
+  payload, 
+)
 }
 
 export const authService = AuthServices.getInstance();

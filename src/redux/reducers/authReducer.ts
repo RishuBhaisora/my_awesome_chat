@@ -9,6 +9,10 @@ import {
   SIGNUP,
   SIGNUP_COMPLETED,
   SIGNUP_ERROR,
+  RESET_PASSWORD_SUCCESS_MESSAGE,
+  REMOVE_RESET_PASSWORD_TOAST,
+  GET_RESET_PASSWORD_OTP,
+  RESET_PASSWORD_ERROR_MESSAGE,
 } from "../actions/actionConstants";
 import { User } from "../../modals/authModals";
 
@@ -21,6 +25,9 @@ export interface AuthState {
   signupLoading: boolean;
   signupMessage?: string;
   signupError?: string;
+  resetPasswordSuccessMessage?: string;
+  resetPasswordErrorMessage?: string;
+  email?: string;
 }
 
 const initialState: AuthState = {
@@ -81,6 +88,26 @@ export const authReducer: Reducer<AuthState> = (
       case REMOVE_SIGNUP_TOAST: {
         draft.signupMessage = undefined;
         draft.signupError = undefined;
+        break;
+      }
+      case GET_RESET_PASSWORD_OTP: {
+        draft.email = action.payload.email;
+        break;
+      }
+      case RESET_PASSWORD_SUCCESS_MESSAGE: {
+        draft.resetPasswordSuccessMessage = action.payload;        
+        break;
+      }
+      case RESET_PASSWORD_ERROR_MESSAGE: {
+        draft.resetPasswordErrorMessage = action.payload;
+        break;
+      }
+      case REMOVE_RESET_PASSWORD_TOAST: {
+        draft.resetPasswordSuccessMessage = undefined;
+        draft.resetPasswordErrorMessage = undefined;
+        if(action.resetSuccess){
+          draft.email = undefined
+        }
         break;
       }
       default:

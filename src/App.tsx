@@ -24,6 +24,8 @@ import AuthPage from "./pages/AuthPage";
 import Loader from "./shared-resources/components/Loader";
 import HomePage from "./components/home-page/HomePage";
 
+const authPageUrls = ["/login", "/signUp", "/forgetPassword", "/resetPassword"];
+
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ function App() {
       const currentPath = location.pathname;
       if (currentPath && currentPath === "/") {
         navigate("/login");
-      } else if (currentPath !== "/login" && currentPath !== "/signUp") {
+      } else if (!authPageUrls.includes(currentPath)) {
         navigate("/login?redirectUrl=" + currentPath);
       }
     }

@@ -3,10 +3,11 @@ import cn from "classnames";
 type ButtonProps = {
   text: string;
   onClick: () => void;
-  clicked: boolean;
+  clicked?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 
-const Button: FC<ButtonProps> = ({ text, onClick, clicked }) => {
+const Button: FC<ButtonProps> = ({ text, onClick, clicked, type }) => {
   return (
     <button
       className={cn(
@@ -18,6 +19,7 @@ const Button: FC<ButtonProps> = ({ text, onClick, clicked }) => {
       )}
       disabled={clicked}
       onClick={onClick}
+      type={type}
     >
       {text}
     </button>
