@@ -20,7 +20,7 @@ import {
   resetPasswordErrorAction,
 } from "../actions/authActions";
 import { authService } from "../../services/AuthServices";
-import { getErrorMessage } from "../../utils/reduxUtils";
+import { getErrorMessage,getSignupErrorMessage } from "../../utils/reduxUtils";
 
 export function* loginSaga(action: {
   type: "LOGIN";
@@ -45,7 +45,7 @@ export function* signupSaga(action: {
     const { data } = yield call(authService.signup, action.payload);
     yield put(signupCompletedAction(data));
   } catch (e: any) {
-    const error = getErrorMessage(e)
+    const error = getSignupErrorMessage(e)
     console.warn(error)
     yield put(signupErrorAction(error));
   }

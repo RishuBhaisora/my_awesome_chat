@@ -12,7 +12,7 @@ export const loggedInUserSelector = createSelector(
 );
 export const loginErrorSelector = createSelector(
   [authSelector],
-  (authState) => authState.error
+  (authState) => authState.loginError
 );
 export const isTokenExpiredSelector = createSelector(
   [authSelector],
@@ -55,3 +55,7 @@ export const resetPasswordEmailSelector = createSelector(
   [authSelector],
   (authState) => authState.email
 );
+
+export const resetPasswordLoadingSelector = createSelector(
+  [authSelector],
+  (authState) => authState.resetPasswordLoading)

@@ -4,22 +4,22 @@ import {
   LOGIN,
   LOGIN_COMPLETED,
   LOGIN_ERROR,
+  REMOVE_AUTH_TOAST,
   LOGOUT,
-  REMOVE_SIGNUP_TOAST,
   SIGNUP,
   SIGNUP_COMPLETED,
   SIGNUP_ERROR,
   RESET_PASSWORD_SUCCESS_MESSAGE,
-  REMOVE_RESET_PASSWORD_TOAST,
   GET_RESET_PASSWORD_OTP,
   RESET_PASSWORD_ERROR_MESSAGE,
+  RESET_PASSWORD,
 } from "../actions/actionConstants";
 import { User } from "../../modals/authModals";
 
 export interface AuthState {
   loggedInUser?: User;
   loginLoading: boolean;
-  error?: string;
+  loginError?: string;
   token?: string;
   isTokenExpired: boolean;
   signupLoading: boolean;
@@ -27,6 +27,7 @@ export interface AuthState {
   signupError?: string;
   resetPasswordSuccessMessage?: string;
   resetPasswordErrorMessage?: string;
+  resetPasswordLoading: boolean;
   email?: string;
 }
 
@@ -34,6 +35,7 @@ const initialState: AuthState = {
   loginLoading: false,
   isTokenExpired: false,
   signupLoading: false,
+  resetPasswordLoading: false,
 };
 
 export const authReducer: Reducer<AuthState> = (
@@ -58,8 +60,7 @@ export const authReducer: Reducer<AuthState> = (
           draft.isTokenExpired = true;
           draft.token = undefined
         }
-        draft.error = action.payload;
-
+        draft.loginError = action.payload;
         draft.loginLoading = false;
         break;
       }
@@ -67,7 +68,7 @@ export const authReducer: Reducer<AuthState> = (
         draft.loggedInUser = undefined;
         draft.token = undefined;
         draft.loginLoading = false;
-        draft.error = undefined;
+        draft.loginError = undefined;
         break;
       }
       case SIGNUP: {
@@ -82,28 +83,33 @@ export const authReducer: Reducer<AuthState> = (
 
       case SIGNUP_ERROR: {
         draft.signupLoading = false;
-        draft.signupError = action.payload.message;
-        break;
-      }
-
-      case REMOVE_SIGNUP_TOAST: {
-        draft.signupMessage = undefined;
-        draft.signupError = undefined;
+        draft.signupError = action.payload;
         break;
       }
       case GET_RESET_PASSWORD_OTP: {
+        draft.resetPasswordLoading = true;
         draft.email = action.payload.email;
         break;
       }
+      case RESET_PASSWORD: {
+        draft.resetPasswordLoading = true;
+        draft.resetPasswordSuccessMessage = action.payload;        
+        break;
+      }
       case RESET_PASSWORD_SUCCESS_MESSAGE: {
+        draft.resetPasswordLoading = false;
         draft.resetPasswordSuccessMessage = action.payload;        
         break;
       }
       case RESET_PASSWORD_ERROR_MESSAGE: {
+        draft.resetPasswordLoading = false;
         draft.resetPasswordErrorMessage = action.payload;
         break;
       }
-      case REMOVE_RESET_PASSWORD_TOAST: {
+      case REMOVE_AUTH_TOAST: {
+        draft.loginError = undefined;
+        draft.signupMessage = undefined;
+        draft.signupError = undefined;
         draft.resetPasswordSuccessMessage = undefined;
         draft.resetPasswordErrorMessage = undefined;
         if(action.resetSuccess){

@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 import {
   resetPasswordAction,
-  removeResetPasswordToast,
+  removeAuthToast,
 } from "../../redux/actions/authActions";
 import { useSelector } from "react-redux";
 import {
   resetPasswordEmailSelector,
   resetPasswordErrorSelector,
   resetPasswordSuccessSelector,
+  resetPasswordLoadingSelector,
 } from "../../redux/selectors/authSelectors";
 import { toastService } from "../../services/ToastService";
 import { useNavigate } from "react-router";
@@ -21,7 +22,7 @@ import Loader from "../../shared-resources/components/Loader";
 const ResetPassword: FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector(resetPasswordLoadingSelector);
   const message = useSelector(resetPasswordSuccessSelector);
   const error = useSelector(resetPasswordErrorSelector);
   const email = useSelector(resetPasswordEmailSelector);
@@ -44,15 +45,13 @@ const ResetPassword: FC = () => {
     otp: string;
   }) => {
     dispatch(resetPasswordAction(values));
-    setLoading(true);
   };
 
   useEffect(() => {
     if (message) {
-      setLoading(false);
       toastService.showSuccess(message);
       setTimeout(() => {
-        dispatch(removeResetPasswordToast(true));
+        dispatch(removeAuthToast(true));
         navigate("/login");
       }, 1000);
     }
@@ -60,10 +59,9 @@ const ResetPassword: FC = () => {
 
   useEffect(() => {
     if (error) {
-      setLoading(false);
       toastService.showError(error);
       setTimeout(() => {
-        dispatch(removeResetPasswordToast());
+        dispatch(removeAuthToast());
       }, 1000);
     }
   }, [error]);
