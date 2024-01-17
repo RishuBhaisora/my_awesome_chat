@@ -1,9 +1,9 @@
 import { memo } from "react";
 import ResponsiveContainer from "../../shared-resources/components/ResponsiveContainer";
 import FriendRequests from "./FriendRequests";
-import Friends from "./Friends";
 import SuggestedFriends from "./SuggestedFriends";
 import { useWidth } from "../../hooks/useWidth";
+import FriendSearchList from "./FriendSearchList";
 
 const HomePage = () => {
   const width = useWidth();
@@ -12,14 +12,12 @@ const HomePage = () => {
       <div className="md:flex hidden">
         <ResponsiveContainer className="flex">
           <FriendRequests />
-          {width >= 950 && <Friends />}
+          {width >= 950 && <FriendSearchList />}
           <SuggestedFriends />
         </ResponsiveContainer>
       </div>
       <div className="flex md:hidden">
         <FriendRequests />
-        {/* <Friends /> */}
-        {/* <SuggestedFriends /> */}
       </div>
     </div>
   );

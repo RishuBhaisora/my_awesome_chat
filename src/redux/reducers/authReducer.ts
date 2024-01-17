@@ -56,6 +56,7 @@ export const authReducer: Reducer<AuthState> = (
       case LOGIN_ERROR: {
         if (action.payload === "jwt expired") {
           draft.isTokenExpired = true;
+          draft.token = undefined
         }
         draft.error = action.payload;
 
