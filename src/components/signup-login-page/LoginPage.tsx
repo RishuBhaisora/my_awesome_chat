@@ -1,10 +1,17 @@
 import { ErrorMessage, Form, Formik } from "formik";
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
-import { useDispatch } from "react-redux";
-import { loginAction } from "../../redux/actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction, removeAuthToast } from "../../redux/actions/authActions";
 import { useNavigate } from "react-router";
+import {
+  loginErrorSelector,
+  loginLoadingSelector,
+} from "../../redux/selectors/authSelectors";
+import Loader from "../../shared-resources/components/Loader";
+
+import { toastService } from "../../services/ToastService";
 
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 
@@ -14,6 +21,8 @@ const LoginPage = () => {
 
   let navigate = useNavigate();
 
+  const error = useSelector(loginErrorSelector);
+  const loading = useSelector(loginLoadingSelector);
   const SignupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -24,6 +33,23 @@ const LoginPage = () => {
   const handleSubmit = (values: { email: string; password: string }) => {
     dispatch(loginAction(values));
   };
+
+  useEffect(() => {
+    if (error) {
+      toastService.showError(error);
+      setTimeout(() => {
+        dispatch(removeAuthToast());
+      }, 1000);
+    }
+  }, [error]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>

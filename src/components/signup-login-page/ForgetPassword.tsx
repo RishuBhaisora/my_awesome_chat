@@ -1,21 +1,25 @@
-import { memo, FC, useEffect, useState } from "react";
+import { memo, FC, useEffect } from "react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
 import { useDispatch, useSelector } from "react-redux";
 import { toastService } from "../../services/ToastService";
-import { resetPasswordErrorSelector, resetPasswordSuccessSelector } from "../../redux/selectors/authSelectors";
+import {
+  resetPasswordErrorSelector,
+  resetPasswordSuccessSelector,
+  resetPasswordLoadingSelector,
+} from "../../redux/selectors/authSelectors";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../shared-resources/components/Loader";
 import {
   getPasswordResetOtpAction,
-  removeResetPasswordToast,
+  removeAuthToast,
 } from "../../redux/actions/authActions";
 
 const ForgotPassword: FC = () => {
-  const [loading, setLoading] = useState(false);
   const message = useSelector(resetPasswordSuccessSelector);
   const error = useSelector(resetPasswordErrorSelector);
+  let loading = useSelector(resetPasswordLoadingSelector);
   let navigate = useNavigate();
 
   const ForgotPasswordSchema = Yup.object().shape({
@@ -25,30 +29,27 @@ const ForgotPassword: FC = () => {
 
   const handleSubmit = (values: { email: string }) => {
     dispatch(getPasswordResetOtpAction(values));
-    setLoading(true);
   };
 
   useEffect(() => {
     if (message) {
-      setLoading(false);
       toastService.showSuccess(message);
       setTimeout(() => {
-        dispatch(removeResetPasswordToast());
+        dispatch(removeAuthToast());
         navigate("/resetPassword");
       }, 1000);
     }
   }, [message]);
-  
+
   useEffect(() => {
     if (error) {
-      setLoading(false);
       toastService.showError(error);
       setTimeout(() => {
-        dispatch(removeResetPasswordToast());
+        dispatch(removeAuthToast());
       }, 1000);
     }
   }, [error]);
-  
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[50vh]">

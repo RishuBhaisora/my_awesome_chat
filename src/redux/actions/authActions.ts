@@ -13,11 +13,10 @@ import {
   LOGOUT,
   SIGNUP,
   SIGNUP_COMPLETED,
-  REMOVE_SIGNUP_TOAST,
+  REMOVE_AUTH_TOAST,
   SIGNUP_ERROR,
   GET_RESET_PASSWORD_OTP,
   RESET_PASSWORD,
-  REMOVE_RESET_PASSWORD_TOAST,
   RESET_PASSWORD_SUCCESS_MESSAGE,
   RESET_PASSWORD_ERROR_MESSAGE
   
@@ -52,10 +51,6 @@ export const signupCompletedAction = (payload: SignupCompleted) => ({
   payload,
 });
 
-export const removeSignupToast = () => ({
-  type: REMOVE_SIGNUP_TOAST,
-});
-
 export const signupErrorAction = (payload: any) => ({
   type: SIGNUP_ERROR,
   payload,
@@ -81,7 +76,7 @@ export const resetPasswordErrorAction = (payload: string) => ({
   payload,
 });
 
-export const removeResetPasswordToast = (resetSuccess: boolean = false) => ({
-  type: REMOVE_RESET_PASSWORD_TOAST,
+export const removeAuthToast = (resetSuccess: boolean = false) => ({
+  type: REMOVE_AUTH_TOAST,
   resetSuccess
 });

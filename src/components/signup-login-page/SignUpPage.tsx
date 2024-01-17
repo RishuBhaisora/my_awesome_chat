@@ -3,10 +3,15 @@ import { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import Input from "../../shared-resources/components/FieldComp";
-import { removeSignupToast, signupAction } from "../../redux/actions/authActions";
+import { removeAuthToast, signupAction } from "../../redux/actions/authActions";
 import { EyeInvisibleTwoTone, EyeTwoTone } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { signupErrorSelector, signupLoadingSelector, signupMessageSelector } from "../../redux/selectors/authSelectors";
+import {
+  signupErrorSelector,
+  signupLoadingSelector,
+  signupMessageSelector,
+} from "../../redux/selectors/authSelectors";
+import Loader from "../../shared-resources/components/Loader";
 import { toastService } from "../../services/ToastService";
 
 const SignUpPage = () => {
@@ -16,7 +21,6 @@ const SignUpPage = () => {
   const signupMessage = useSelector(signupMessageSelector);
   const signupError = useSelector(signupErrorSelector);
   const signUpLoading = useSelector(signupLoadingSelector);
-
 
   const SignupSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
@@ -41,25 +45,32 @@ const SignUpPage = () => {
 
   let navigate = useNavigate();
 
-  
   useEffect(() => {
-    if (signupMessage) {      
+    if (signupMessage) {
       toastService.showSuccess(signupMessage);
       setTimeout(() => {
-        dispatch(removeSignupToast());
+        dispatch(removeAuthToast());
         navigate("/user");
       }, 1000);
     }
   }, [signupMessage]);
 
   useEffect(() => {
-    if (signupError) {      
+    if (signupError) {
       toastService.showError(signupError);
       setTimeout(() => {
-        dispatch(removeSignupToast());
+        dispatch(removeAuthToast());
       }, 1000);
     }
   }, [signupError]);
+  
+  if (signUpLoading) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className=" ">

@@ -1,15 +1,15 @@
 import { FC, memo } from "react";
 import { Outlet } from "react-router";
-import FriendList, { friendListType } from "./FriendList";
+import FriendList from "./FriendList";
 import MessageBox from "./message-box/MessageBox";
 import ResponsiveContainer from "../../shared-resources/components/ResponsiveContainer";
 
-const FriendsPage: FC<friendListType> = memo(({ friends }) => {
+const FriendsPage: FC = memo(() => {
   return (
     <>
       <div className="md:flex hidden">
         <ResponsiveContainer className="flex">
-          <FriendList friends={friends} />
+          <FriendList/>
           <MessageBox />
         </ResponsiveContainer>
       </div>
