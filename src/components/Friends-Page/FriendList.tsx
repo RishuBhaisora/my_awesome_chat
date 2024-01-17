@@ -1,28 +1,19 @@
 import { FC, memo, useEffect, useState } from "react";
-import FriendRow, { friendRowType } from "./FriendRow";
 import { useDispatch, useSelector } from "react-redux";
-import { getFriendsAction } from "../../redux/actions/friendsAction";
-import { getFriendsSelector } from "../../redux/selectors/friendsSelectors";
 import CustomSearch from "../../shared-resources/components/CustomSearch";
 import cx from "classnames";
 import Menu from "../../shared-resources/components/Menu";
 import DottedMenu from "../../shared-resources/icons/DottedMenu";
+import Friends from "./Friends";
 const searchOptions = [
   { key: "recentChats", value: "Recent Chats" },
   { key: "friends", value: "Friends" },
 ];
-export type friendListType = { friends: friendRowType[] };
-const FriendList: FC<friendListType> = memo(({ friends }) => {
+const FriendList: FC= memo(() => {
   const dispatch = useDispatch();
   const [searchFor, setSearchFor] = useState("recentChats");
   const [open, setOpen] = useState(false);
 
-  const getFriendsData = useSelector(getFriendsSelector);
-  console.log(getFriendsData, searchFor);
-
-  useEffect(() => {
-    dispatch(getFriendsAction());
-  }, []);
 
   const renderMenu = () => {
     return (
@@ -30,7 +21,7 @@ const FriendList: FC<friendListType> = memo(({ friends }) => {
         <DottedMenu
           setOpen={setOpen}
           open={open}
-          className="top-[92px] z-10 right-[18px] md:hidden h-[25px] w-[25px] "
+          className="top-[13%] z-10 right-[18px] md:hidden h-[25px] w-[25px] "
         />
         {open && (
           <Menu
@@ -65,20 +56,12 @@ const FriendList: FC<friendListType> = memo(({ friends }) => {
             { "md:flex flex-col hidden ": searchFor !== "recentChats" }
           )}
         >
-          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[12%] text-[20px] font-[700] leading-[30px]">
             Recent Chats
           </div>
 
           <div className="overflow-y-auto h-full">
-            {friends.map((item: friendRowType, i: number) => (
-              <FriendRow
-                key={i}
-                image={item.image}
-                message={item.message}
-                name={item.name}
-                id={i.toString()}
-              />
-            ))}
+            <Friends/>
           </div>
         </div>
         <div
@@ -87,20 +70,12 @@ const FriendList: FC<friendListType> = memo(({ friends }) => {
             { "md:flex flex-col hidden": searchFor !== "friends" }
           )}
         >
-          <div className="absolute md:top-2 md:left-6 top-[85px] text-[20px] font-[700] leading-[30px]">
+          <div className="absolute md:top-2 md:left-6 top-[12%] text-[20px] font-[700] leading-[30px]">
             Friends
           </div>
 
           <div className="overflow-y-auto h-full">
-            {friends.map((item: friendRowType, i: number) => (
-              <FriendRow
-                key={i}
-                image={item.image}
-                message={item.message}
-                name={item.name}
-                id={i.toString()}
-              />
-            ))}
+            <Friends/>
           </div>
         </div>
       </div>

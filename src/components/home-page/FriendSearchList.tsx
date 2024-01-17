@@ -1,10 +1,8 @@
 import { memo } from "react";
-import { mockFriends } from "../../Mock-Data/mock-friends";
-import FriendRow, { friendRowType } from "../Friends-Page/FriendRow";
 import CustomSearch from "../../shared-resources/components/CustomSearch";
+import Friends from "../Friends-Page/Friends";
 
-const Friends = () => {
-  const friends = mockFriends as any;
+const FriendSearchList = () => {
   return (
     <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full h-screen md:pr-[34px] pr-0 md:pb-0 pb-16">
       <div className="w-full h-full md:rounded-lg flex flex-col justify-between">
@@ -14,15 +12,7 @@ const Friends = () => {
             Friends
           </div>
           <div className="overflow-y-auto h-full">
-            {friends.map((item: friendRowType, i: number) => (
-              <FriendRow
-                key={i}
-                image={item.image}
-                message={item.message}
-                name={item.name}
-                id={i.toString()}
-              />
-            ))}
+            <Friends/>
           </div>
         </div>
       </div>
@@ -30,4 +20,4 @@ const Friends = () => {
   );
 };
 
-export default memo(Friends);
+export default memo(FriendSearchList);

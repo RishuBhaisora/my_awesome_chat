@@ -10,7 +10,6 @@ import FriendsPage from "./components/Friends-Page/FriendsPage";
 import MessageBox from "./components/Friends-Page/message-box/MessageBox";
 import SettingsPage from "./components/settings-page/SettingsPage";
 import MainLayout from "./pages/MainLayout";
-import { mockFriends } from "./Mock-Data/mock-friends";
 import NotificationPage from "./components/notification-page/NotificationPage";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -82,11 +81,11 @@ function App() {
             <Route path="/user/notification" element={<NotificationPage />} />
             <Route
               path="/user/friends"
-              element={<FriendsPage friends={mockFriends as any} />}
+              element={<FriendsPage/>}
             >
               <Route
                 path="/user/friends/message"
-                element={<FriendList friends={mockFriends as any} />}
+                element={<FriendList/>}
               />
               <Route
                 path="/user/friends/message/:id"

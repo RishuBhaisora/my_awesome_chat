@@ -1,4 +1,4 @@
 import { AppState } from "../store";
 
-export const friendSelector = (state: AppState) => state.friendsReducer
+export const friendshipSelector = (state: AppState) => state.friendshipReducer
 export const authSelector = (state: AppState) => state.authReducer
