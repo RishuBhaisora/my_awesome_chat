@@ -1,18 +1,45 @@
-import React, { FC, memo, useEffect } from "react";
+import React, { FC, memo, useEffect, } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { suggestedFriendsSelector } from "../../redux/selectors/friendshipSelector";
-import { getSuggestedFriendsAction, sendFriendRequestAction } from "../../redux/actions/friendshipAction";
-
+import { suggestedFriendsSelector, sendFriendRequestLoadingSelector,
+        sendFriendRequestErrorSelector,sendFriendRequestSuccessSelector} from "../../redux/selectors/friendshipSelector";
+  import { toastService } from "../../services/ToastService";
+import { getSuggestedFriendsAction, sendFriendRequestAction,removeFriendsToastAction } from "../../redux/actions/friendshipAction";
+import Loader from "../../shared-resources/components/Loader";
+import Popup from "../../shared-resources/components/Popup";
+import 'reactjs-popup/dist/index.css';
 const FriendSuggestions: FC = () => {
   const dispatch = useDispatch();
   const suggestedFriends = useSelector(suggestedFriendsSelector);
-
+  const loading = useSelector(sendFriendRequestLoadingSelector)
+  const error=useSelector(sendFriendRequestErrorSelector)
+  const message=useSelector(sendFriendRequestSuccessSelector)
   useEffect(() => {
+    console.log("loading", loading)
     dispatch(getSuggestedFriendsAction());
   }, []);
+  useEffect(() => {
+    if (message) {
+      toastService.showSuccess(message);
+      setTimeout(() => {
+        dispatch(removeFriendsToastAction());
+       
+      }, 1000);
+    }
+  }, [message]);
+
+  useEffect(() => {
+    if (error) {
+      toastService.showError(error);
+      setTimeout(() => {
+       dispatch(removeFriendsToastAction());
+       
+      }, 1000);
+    }
+  }, [error]);
 
   return (
     <>
+      {loading && <Loader />}
       {suggestedFriends.map((friend: any, i: number) => (
         <div
           key={i}
@@ -24,13 +51,16 @@ const FriendSuggestions: FC = () => {
           <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
             <h1 className="text-lg font-bold">{friend.name}</h1>
             <div className="flex gap-3 mt-1 md:mt-0">
-              <button onClick={() => dispatch(sendFriendRequestAction(friend.id)) } className="font-medium text-green-600">
-                Send Friend Request
-              </button>
+<Popup title="send Friend Request"
+  onBtnClick={()=>dispatch(sendFriendRequestAction(friend.id))}
+  loading={loading}
+  className="text-green-500"/>
             </div>
           </div>
         </div>
       ))}
+
+
     </>
   );
 };

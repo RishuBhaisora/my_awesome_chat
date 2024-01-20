@@ -7,6 +7,7 @@ import { getErrorMessage } from "../../utils/reduxUtils";
 function* getFriendRequestsSaga() {
   try {
     const { data } = yield call(friendshipService.getFriendRequests);
+    console.log("data", data);
     yield put(getFriendRequestsCompletedAction(data));
   } catch (e: any) {
     const error = getErrorMessage(e);

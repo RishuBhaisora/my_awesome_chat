@@ -66,6 +66,7 @@ export class friendshipService {
         token,
         friend_id
       });
+      console.log("response", response);
       return response;
     } catch (error: any) {
       throw error;

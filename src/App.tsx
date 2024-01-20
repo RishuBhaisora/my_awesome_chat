@@ -23,6 +23,7 @@ import AuthPage from "./pages/AuthPage";
 import Loader from "./shared-resources/components/Loader";
 import HomePage from "./components/home-page/HomePage";
 
+
 const authPageUrls = ["/login", "/signUp", "/forgetPassword", "/resetPassword"];
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
     );
   }
   return (
+    <>
+      
     <Routes>
       {loggedInUser ? (
         <>
@@ -98,6 +101,7 @@ function App() {
       ) : (
         <Route path="*" element={<AuthPage />}/>      )}
     </Routes>
+    </>
   );
 }
 

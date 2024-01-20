@@ -1,5 +1,5 @@
 
-import {  memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomSearch from "../../shared-resources/components/CustomSearch";
 import cx from "classnames";
@@ -7,16 +7,32 @@ import Menu from "../../shared-resources/components/Menu";
 import DottedMenu from "../../shared-resources/icons/DottedMenu";
 import Friends from "../Friends-Page/Friends";
 import { mockFriends } from "../../Mock-Data/mock-friends";
-import { friendRequestsSelector, sentFriendRequestsSelector, suggestedFriendsSelector } from "../../redux/selectors/friendshipSelector";
-import { acceptFriendRequestAction, cancelFriendRequestAction, getFriendRequestsAction, getSentFriendRequestsAction, getSuggestedFriendsAction, rejectFriendRequestAction } from "../../redux/actions/friendshipAction";
+import {
+  friendRequestsSelector, sentFriendRequestsSelector,
+  acceptFriendRequestSuccessSelector,
+  acceptFriendRequestErrorSelector,
+  acceptFriendRequestLoadingSelector,
+  suggestedFriendsSelector,
+  rejectFriendRequestSuccessSelector,
+  rejectFriendRequestErrorSelector,
+  rejectFriendRequestLoadingSelector,
+  cancelFriendRequestSuccessSelector,
+  cancelFriendRequestErrorSelector,
+  cancelFriendRequestLoadingSelector
+} from "../../redux/selectors/friendshipSelector";
+import { acceptFriendRequestAction, cancelFriendRequestAction, getFriendRequestsAction, getSentFriendRequestsAction, getSuggestedFriendsAction, rejectFriendRequestAction,
+removeFriendsToastAction} from "../../redux/actions/friendshipAction";
 import FriendSuggestions from "./FriendSuggestions";
+import Popup from "../../shared-resources/components/Popup";
+import {toastService} from "../../services/ToastService";
+
 
 const searchOptions = [
-    { key: "friendRequests", value: "Friend Request" },
-    { key: "sentRequests", value: "Sent Requests" },
-    { key: "suggestedFriends", value: "Suggested Friends" },
-    { key: "friends", value: "Friends" },
-  ];
+  { key: "friendRequests", value: "Friend Request" },
+  { key: "sentRequests", value: "Sent Requests" },
+  { key: "suggestedFriends", value: "Suggested Friends" },
+  { key: "friends", value: "Friends" },
+];
 
 const FriendList = memo(() => {
   const dispatch = useDispatch();
@@ -24,12 +40,54 @@ const FriendList = memo(() => {
   const [open, setOpen] = useState(false);
   const friendRequests = useSelector(friendRequestsSelector);
   const sentFriendRequests = useSelector(sentFriendRequestsSelector);
-  
+  const declineLoading = useSelector(rejectFriendRequestLoadingSelector);
+  const loading = useSelector(cancelFriendRequestLoadingSelector)
+  const acceptFrndReqLoading = useSelector(acceptFriendRequestLoadingSelector)
+  const acceptFrndReqMessage=useSelector(acceptFriendRequestSuccessSelector)
+  const acceptFrndReqError=useSelector(acceptFriendRequestErrorSelector)
+  const rejectFrndReqMessage=useSelector(rejectFriendRequestSuccessSelector)
+  const rejectFrndReqError=useSelector(rejectFriendRequestErrorSelector)
+  const cancelFrndReqMessage=useSelector(cancelFriendRequestSuccessSelector)
+  const cancelFrndReqError=useSelector(cancelFriendRequestErrorSelector)
   useEffect(() => {
     dispatch(getFriendRequestsAction());
     dispatch(getSentFriendRequestsAction())
   }, []);
 
+  useEffect(() =>{
+    if (acceptFrndReqMessage) {
+      toastService.showSuccess(acceptFrndReqMessage)}
+
+      if (rejectFrndReqMessage) {
+        toastService.showSuccess(rejectFrndReqMessage)
+      }
+      if (cancelFrndReqMessage) {
+        toastService.showSuccess(cancelFrndReqMessage)
+      }
+      setTimeout(() => {
+        dispatch(removeFriendsToastAction());
+        
+      }, 1000);
+      
+    },
+  [acceptFrndReqMessage,rejectFrndReqMessage,cancelFrndReqMessage])
+
+useEffect(() =>{
+  if (acceptFrndReqError) {
+    toastService.showError(acceptFrndReqError)}
+  
+  if (rejectFrndReqError) {
+      toastService.showError(rejectFrndReqError)
+  }
+  if (cancelFrndReqError) {
+    toastService.showError(cancelFrndReqError)
+  }
+  setTimeout(() =>{
+    dispatch(removeFriendsToastAction());
+  },1000)
+  
+},[acceptFrndReqError,rejectFrndReqError,cancelFrndReqError])
+  
   const renderMenu = () => {
     return (
       <>
@@ -77,19 +135,22 @@ const FriendList = memo(() => {
 
           <div className="overflow-y-auto h-full">
             {friendRequests.map((item: any, i: number) => (
-               <div
-               key={i}
-               className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
-             >
-               <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold" >{item.friend_details.name[0]}</div>
-               <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
-                 <h1 className="text-lg font-bold">{item.friend_details.name}</h1>
-                 <div className="flex gap-3 mt-1 md:mt-0">
-                 <button className="font-medium text-green-600" onClick={() => dispatch(acceptFriendRequestAction(item.friend_id))}>Accept</button>
-                 <button className="font-medium text-red-600" onClick={() => dispatch(rejectFriendRequestAction(item.friend_id))}>Decline</button>
-                 </div>
-               </div>
-             </div>
+              <div
+                key={i}
+                className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
+              >
+                <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold" >{item.friend_details.name[0]}</div>
+                <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
+                  <h1 className="text-lg font-bold">{item.friend_details.name}</h1>
+                  <div className="flex gap-3 mt-1 md:mt-0">
+                    <button className="font-medium text-green-600" onClick={() => dispatch(acceptFriendRequestAction(item.friend_id))}>{acceptFrndReqLoading?"Loading...":"Accept"}</button>
+                    <Popup
+                      title="Decline"
+                      onBtnClick={() => dispatch(rejectFriendRequestAction(item.friend_id))}
+                      loading={declineLoading} />
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -104,7 +165,7 @@ const FriendList = memo(() => {
           </div>
 
           <div className="overflow-y-auto h-full">
-          {sentFriendRequests.map((item: any, i: number) => (
+            {sentFriendRequests.map((item: any, i: number) => (
               <div
                 key={i}
                 className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
@@ -117,9 +178,10 @@ const FriendList = memo(() => {
                     {item.friend_details.name}
                   </h1>
                   <div className="flex gap-3 mt-1 md:mt-0">
-                    <button onClick={() => dispatch(cancelFriendRequestAction(item.friend_id)) } className="font-medium text-red-600">
-                      Cancel Request
-                    </button>
+                    <Popup title="Cancel Request"
+                      onBtnClick={() => dispatch(cancelFriendRequestAction(item.friend_id))}
+                      loading={loading} />
+
                   </div>
                 </div>
               </div>
@@ -138,7 +200,7 @@ const FriendList = memo(() => {
           </div>
 
           <div className="overflow-y-auto h-full">
-          <FriendSuggestions/>
+            <FriendSuggestions />
           </div>
         </div>
         <div
@@ -149,11 +211,11 @@ const FriendList = memo(() => {
           )}
         >
           <div className="absolute md:top-2 md:left-6 top-[12%] text-[20px] font-[700] leading-[30px]">
-           Friends
+            Friends
           </div>
 
           <div className="overflow-y-auto h-full">
-            <Friends/>
+            <Friends />
           </div>
         </div>
       </div>

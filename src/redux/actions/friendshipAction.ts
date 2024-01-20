@@ -26,6 +26,7 @@ import {
   SEND_FRIEND_REQUEST,
   SEND_FRIEND_REQUEST_COMPLETED,
   SEND_FRIEND_REQUEST_ERROR,
+REMOVE_FRIENDS_TOAST,
 } from "./actionConstants";
 
 export const getFriendRequestsAction = () => ({
@@ -158,3 +159,6 @@ export const removeFriendErrorAction = (error: string) => ({
   type: REMOVE_FRIEND_ERROR,
   payload: error,
 });
+export const removeFriendsToastAction = () => ({
+    type: REMOVE_FRIENDS_TOAST,
+  })
