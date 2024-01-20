@@ -2,16 +2,21 @@ import { FC, memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFriendListAction, removeFriendAction,removeFriendsToastAction } from "../../redux/actions/friendshipAction";
 import { friendsListSelector,
+        friendsListErrorSelector,
+        friendsListLoadingSelector,
         removeFriendLoadingSelector,
         removeFriendSuccessSelector,
        removeFriendErrorSelector} from "../../redux/selectors/friendshipSelector";
 import Popup from "../../shared-resources/components/Popup"
 import {toastService} from "../../services/ToastService";
+import NoData from "../../shared-resources/components/NoData";
 
 
 const Friends: FC = () => {
   const dispatch = useDispatch()
   const friendList = useSelector(friendsListSelector)
+  const friendListLoading = useSelector(friendsListLoadingSelector)
+  const friendListError = useSelector(friendsListErrorSelector)
   const loading=useSelector(removeFriendLoadingSelector)
   const error=useSelector(removeFriendErrorSelector)
   const message=useSelector(removeFriendSuccessSelector)
@@ -31,16 +36,22 @@ const Friends: FC = () => {
 
   useEffect(() => {
     if (error) {
-      toastService.showError(error);
+      toastService.showError(error);}
+    
+    if (friendListError){
+      toastService.showError(friendListError);
+    }
       setTimeout(() => {
         dispatch(removeFriendsToastAction());
       }, 1000);
-    }
-  }, [error]);
+    },
+   [error]);
 
 
   return (
     <>
+      {!friendListLoading && friendList.length==0 && <NoData title="No Friends Yet"
+                                 loading={friendListLoading}/>}
     {friendList.map((item: any, i: number) => (
         <div
           key={i}

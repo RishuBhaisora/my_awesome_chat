@@ -1,16 +1,23 @@
 import React, { FC, memo, useEffect, } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { suggestedFriendsSelector, sendFriendRequestLoadingSelector,
-        sendFriendRequestErrorSelector,sendFriendRequestSuccessSelector} from "../../redux/selectors/friendshipSelector";
+import { suggestedFriendsSelector, 
+        suggestedFriendsLoadingSelector,
+        suggestedFriendsErrorSelector,
+        sendFriendRequestLoadingSelector,
+   sendFriendRequestErrorSelector,
+    sendFriendRequestSuccessSelector,
+} from "../../redux/selectors/friendshipSelector";
   import { toastService } from "../../services/ToastService";
 import { getSuggestedFriendsAction, sendFriendRequestAction,removeFriendsToastAction } from "../../redux/actions/friendshipAction";
-import Loader from "../../shared-resources/components/Loader";
+import NoData from "../../shared-resources/components/NoData";
 import Popup from "../../shared-resources/components/Popup";
 import 'reactjs-popup/dist/index.css';
 const FriendSuggestions: FC = () => {
   const dispatch = useDispatch();
   const suggestedFriends = useSelector(suggestedFriendsSelector);
   const loading = useSelector(sendFriendRequestLoadingSelector)
+  const suggestedFrndLoading=useSelector(suggestedFriendsLoadingSelector)
+  const suggestedFriendError=useSelector(suggestedFriendsErrorSelector)
   const error=useSelector(sendFriendRequestErrorSelector)
   const message=useSelector(sendFriendRequestSuccessSelector)
   useEffect(() => {
@@ -29,17 +36,20 @@ const FriendSuggestions: FC = () => {
 
   useEffect(() => {
     if (error) {
-      toastService.showError(error);
+      toastService.showError(error);}
+    if (suggestedFriendError) {
+      toastr.showError(suggestedFriendError);
+    }
       setTimeout(() => {
        dispatch(removeFriendsToastAction());
        
       }, 1000);
-    }
   }, [error]);
 
   return (
     <>
-      {loading && <Loader />}
+      {!suggestedFrndLoading && suggestedFriends.length == 0 && <NoData title="No Suggested Friends" 
+                                         loading={suggestedFrndLoading}/>}
       {suggestedFriends.map((friend: any, i: number) => (
         <div
           key={i}

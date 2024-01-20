@@ -1,4 +1,3 @@
-
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CustomSearch from "../../shared-resources/components/CustomSearch";
@@ -6,9 +5,13 @@ import cx from "classnames";
 import Menu from "../../shared-resources/components/Menu";
 import DottedMenu from "../../shared-resources/icons/DottedMenu";
 import Friends from "../Friends-Page/Friends";
+import NoData from "../../shared-resources/components/NoData";
 import { mockFriends } from "../../Mock-Data/mock-friends";
 import {
-  friendRequestsSelector, sentFriendRequestsSelector,
+  friendRequestsSelector,
+  friendRequestsLoadingSelector,
+  sentFriendRequestsSelector,
+  sentFriendRequestsLoadingSelector,
   acceptFriendRequestSuccessSelector,
   acceptFriendRequestErrorSelector,
   acceptFriendRequestLoadingSelector,
@@ -25,7 +28,7 @@ removeFriendsToastAction} from "../../redux/actions/friendshipAction";
 import FriendSuggestions from "./FriendSuggestions";
 import Popup from "../../shared-resources/components/Popup";
 import {toastService} from "../../services/ToastService";
-
+import Loader from "../../shared-resources/components/Loader";
 
 const searchOptions = [
   { key: "friendRequests", value: "Friend Request" },
@@ -40,6 +43,8 @@ const FriendList = memo(() => {
   const [open, setOpen] = useState(false);
   const friendRequests = useSelector(friendRequestsSelector);
   const sentFriendRequests = useSelector(sentFriendRequestsSelector);
+  const frndReqLoading=useSelector(friendRequestsLoadingSelector);
+  const sentFrndReqLoading=useSelector(sentFriendRequestsLoadingSelector);
   const declineLoading = useSelector(rejectFriendRequestLoadingSelector);
   const loading = useSelector(cancelFriendRequestLoadingSelector)
   const acceptFrndReqLoading = useSelector(acceptFriendRequestLoadingSelector)
@@ -109,6 +114,7 @@ useEffect(() =>{
     );
   };
 
+  
   return (
     <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full  h-screen md:pr-[34px] pr-0 md:pb-0 pb-16 ">
       <div className="w-full h-full md:rounded-lg flex flex-col justify-between md:gap-[15px]">
@@ -133,17 +139,22 @@ useEffect(() =>{
             Friend Requests
           </div>
 
-          <div className="overflow-y-auto h-full">
+          
+          {!frndReqLoading && friendRequests.length==0 && <NoData 
+                                                          title="No Friend Requests"
+                                                            loading={frndReqLoading}/>}
+          
+            <div className="overflow-y-auto h-full">
+            
             {friendRequests.map((item: any, i: number) => (
               <div
                 key={i}
-                className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
-              >
+                className="flex px-4 py-2 border-slate-400 border-b-2 items-center">
                 <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold" >{item.friend_details.name[0]}</div>
                 <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
                   <h1 className="text-lg font-bold">{item.friend_details.name}</h1>
                   <div className="flex gap-3 mt-1 md:mt-0">
-                    <button className="font-medium text-green-600" onClick={() => dispatch(acceptFriendRequestAction(item.friend_id))}>{acceptFrndReqLoading?"Loading...":"Accept"}</button>
+                    <button className="font-medium text-green-600" onClick={() => dispatch(acceptFriendRequestAction(item.friend_id))}>Accept</button>
                     <Popup
                       title="Decline"
                       onBtnClick={() => dispatch(rejectFriendRequestAction(item.friend_id))}
@@ -153,6 +164,7 @@ useEffect(() =>{
               </div>
             ))}
           </div>
+
         </div>
         <div
           className={cx(
@@ -165,7 +177,8 @@ useEffect(() =>{
           </div>
 
           <div className="overflow-y-auto h-full">
-            {sentFriendRequests.map((item: any, i: number) => (
+            {!sentFrndReqLoading && sentFriendRequests.length==0 && <NoData title ="No sent Requests"
+loading={sentFrndReqLoading}/>}       {sentFriendRequests.map((item: any, i: number) => (
               <div
                 key={i}
                 className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
