@@ -12,6 +12,9 @@ import { getSuggestedFriendsAction, sendFriendRequestAction,removeFriendsToastAc
 import NoData from "../../shared-resources/components/NoData";
 import Popup from "../../shared-resources/components/Popup";
 import 'reactjs-popup/dist/index.css';
+
+
+
 const FriendSuggestions: FC = () => {
   const dispatch = useDispatch();
   const suggestedFriends = useSelector(suggestedFriendsSelector);
@@ -38,7 +41,7 @@ const FriendSuggestions: FC = () => {
     if (error) {
       toastService.showError(error);}
     if (suggestedFriendError) {
-      toastr.showError(suggestedFriendError);
+      toastService.showError(suggestedFriendError);
     }
       setTimeout(() => {
        dispatch(removeFriendsToastAction());
@@ -50,7 +53,7 @@ const FriendSuggestions: FC = () => {
     <>
       {!suggestedFrndLoading && suggestedFriends.length == 0 && <NoData title="No Suggested Friends" 
                                          loading={suggestedFrndLoading}/>}
-      {suggestedFriends.map((friend: any, i: number) => (
+      { suggestedFriends.map((friend: any, i: number) => (
         <div
           key={i}
           className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
@@ -69,8 +72,6 @@ const FriendSuggestions: FC = () => {
           </div>
         </div>
       ))}
-
-
     </>
   );
 };

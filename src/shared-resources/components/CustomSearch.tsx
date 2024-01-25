@@ -7,11 +7,15 @@ interface CustomSearchType {
   options?: { key: string; value: string }[];
   setOption?: (key: string) => void;
   selectedOption?: string;
+  onChange?:(e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?:string
 }
 const CustomSearch: FC<CustomSearchType> = ({
   options,
   setOption,
   selectedOption,
+  onChange,
+  value
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -37,6 +41,8 @@ const CustomSearch: FC<CustomSearchType> = ({
       )}
 
       <input
+        onChange={onChange}
+        value={value}
         placeholder="Search"
         className=" outline-none w-full h-[45px] bottom-shadow pr-[45px] pl-[55px] rounded-[20px] bg-white"
       />

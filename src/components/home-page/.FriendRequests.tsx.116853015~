@@ -21,13 +21,10 @@ import {
   rejectFriendRequestLoadingSelector,
   cancelFriendRequestSuccessSelector,
   cancelFriendRequestErrorSelector,
-  cancelFriendRequestLoadingSelector,
-  friendsListSelector
+  cancelFriendRequestLoadingSelector
 } from "../../redux/selectors/friendshipSelector";
 import { acceptFriendRequestAction, cancelFriendRequestAction, getFriendRequestsAction, getSentFriendRequestsAction, getSuggestedFriendsAction, rejectFriendRequestAction,
-removeFriendsToastAction,
-       sendFriendRequestAction,
-       removeFriendAction} from "../../redux/actions/friendshipAction";
+removeFriendsToastAction} from "../../redux/actions/friendshipAction";
 import FriendSuggestions from "./FriendSuggestions";
 import Popup from "../../shared-resources/components/Popup";
 import {toastService} from "../../services/ToastService";
@@ -45,16 +42,10 @@ const FriendList = memo(() => {
   const [searchFor, setSearchFor] = useState("friendRequests");
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [searchFriendReqResult, setSearchFriendReqResult] = useState<any[]>([]);
-  const [searchSentReqResult, setSearchSentReqResult] = useState<any[]>([]);
-  const [searchFriendsResult, setSearchFriendsResult] = useState<any[]>([]);
-
-  const [searchSuggestedFriendsResult, setSearchSuggestedFriendsResult] = useState<any[]>([]);
   const friendRequests = useSelector(friendRequestsSelector);
   const sentFriendRequests = useSelector(sentFriendRequestsSelector);
   const frndReqLoading=useSelector(friendRequestsLoadingSelector);
   const sentFrndReqLoading=useSelector(sentFriendRequestsLoadingSelector);
-  
   const declineLoading = useSelector(rejectFriendRequestLoadingSelector);
   const loading = useSelector(cancelFriendRequestLoadingSelector)
   const acceptFrndReqLoading = useSelector(acceptFriendRequestLoadingSelector)
@@ -64,9 +55,6 @@ const FriendList = memo(() => {
   const rejectFrndReqError=useSelector(rejectFriendRequestErrorSelector)
   const cancelFrndReqMessage=useSelector(cancelFriendRequestSuccessSelector)
   const cancelFrndReqError=useSelector(cancelFriendRequestErrorSelector)
-  const suggestedFriends = useSelector(suggestedFriendsSelector)
-
-  const friends = useSelector(friendsListSelector)
   useEffect(() => {
     dispatch(getFriendRequestsAction());
     dispatch(getSentFriendRequestsAction())
@@ -128,37 +116,11 @@ useEffect(() =>{
   };
 
   useEffect(() =>{
-if (searchFor==="friendRequests" && friendRequests) {
-  const filteredFriendRequests = friendRequests.filter((friend) =>
-friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
-
-setSearchFriendReqResult(filteredFriendRequests)
-
+if (searchFor==="friendRequests") {
+  let filteredFriendRequests = friendRequests.filter((friend) =>
+    friend.friend
 }
-    if (searchFor==="sentRequests" && sentFriendRequests){
-  
-  const filteredSentFriendRequests = sentFriendRequests.filter((friend) =>
-friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
-      console.log("filteredSentFriendRequests",filteredSentFriendRequests)
-  setSearchSentReqResult(filteredSentFriendRequests)
-}
-    if (searchFor==="suggestedFriends" && suggestedFriends ){
-      
-
-  const filteredSuggestedFriends = suggestedFriends.filter((friend) =>
-friend.name?.toLowerCase().includes(searchValue?.toLowerCase()))
-      console.log("filteredSuggestedFriends",filteredSuggestedFriends)
-
-      setSearchSuggestedFriendsResult(filteredSuggestedFriends)
-}
-    if (searchFor==="friends" && friends) {
-  
-  const filteredFriends = friends.filter((friend) =>
-friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
-  setSearchFriendsResult(filteredFriends)
-}
-  },[searchValue])
-  
+  },[])
   
   return (
     <div className=" xl:w-[45%] lg:w-[60%] w-full md:h-full  h-screen md:pr-[34px] pr-0 md:pb-0 pb-16 ">
@@ -167,18 +129,12 @@ friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
           <CustomSearch
             options={searchOptions}
             selectedOption={searchFor}
-            setOption={(key) => setSearchFor(key)}
-            onChange={(e) => setSearchValue(e.target.value)}
+            setOption={(key) => setSearchFor(key)
+            onChange={(e) => setSearchValue(e.target.value)}}
           />
         </div>
         <div className="flex flex-col md:hidden">
-          <CustomSearch options={searchOptions}
-            selectedOption={searchFor}
-            setOption={(key) => setSearchFor(key)}
-            onChange={(e) => setSearchValue(e.target.value)
-            }
-            value={searchValue}
- />
+          <CustomSearch />
         </div>
         {renderMenu()}
         <div
@@ -198,7 +154,7 @@ friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
           
             <div className="overflow-y-auto h-full">
             
-            {!searchValue && friendRequests.map((item: any, i: number) => (
+            {friendRequests.map((item: any, i: number) => (
               <div
                 key={i}
                 className="flex px-4 py-2 border-slate-400 border-b-2 items-center">
@@ -215,25 +171,6 @@ friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
                 </div>
               </div>
             ))}
-              
-              {searchValue && searchFriendReqResult.length > 0 && searchFriendReqResult.map((item: any, i: number) =>(
-          <div
-            key={i}
-            className="flex px-4 py-2 border-slate-400 border-b-2 items-center">
-            <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold" >{item.friend_details.name[0]}</div>
-            <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
-              <h1 className="text-lg font-bold">{item.friend_details.name}</h1>
-              <div className="flex gap-3 mt-1 md:mt-0">
-                <button className="font-medium text-green-600" onClick={() => dispatch(acceptFriendRequestAction(item.friend_id))}>Accept</button>
-                <Popup
-                  title="Decline"
-                  onBtnClick={() => dispatch(rejectFriendRequestAction(item.friend_id))}
-                  loading={declineLoading} />
-              </div>
-            </div>
-          </div>
-              ))}
-              {searchValue && searchFriendReqResult.length == 0 && <NoData title="No friend request"/>}
           </div>
 
         </div>
@@ -249,8 +186,7 @@ friend.friend_details.name?.toLowerCase().includes(searchValue?.toLowerCase()))
 
           <div className="overflow-y-auto h-full">
             {!sentFrndReqLoading && sentFriendRequests.length==0 && <NoData title ="No sent Requests"
-loading={sentFrndReqLoading}/>} 
-            {!searchValue && sentFriendRequests.map((item: any, i: number) => (
+loading={sentFrndReqLoading}/>}       {sentFriendRequests.map((item: any, i: number) => (
               <div
                 key={i}
                 className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
@@ -271,28 +207,6 @@ loading={sentFrndReqLoading}/>}
                 </div>
               </div>
             ))}
-            {searchValue && searchSentReqResult.length >0 && searchSentReqResult.map((item: any, i: number) =>(
-          <div
-            key={i}
-            className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
-          >
-            <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold">
-              {item.friend_details.name[0]}
-            </div>
-            <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
-              <h1 className="text-lg font-bold">
-                {item.friend_details.name}
-              </h1>
-              <div className="flex gap-3 mt-1 md:mt-0">
-                <Popup title="Cancel Request"
-                  onBtnClick={() => dispatch(cancelFriendRequestAction(item.friend_id))}
-                  loading={loading} />
-
-              </div>
-            </div>
-          </div>
-            ))}
-            {searchValue && searchSentReqResult.length == 0 && <NoData title="No sent Requests"/>}
           </div>
         </div>
         <div
@@ -307,27 +221,7 @@ loading={sentFrndReqLoading}/>}
           </div>
 
           <div className="overflow-y-auto h-full">
-            {!searchValue &&<FriendSuggestions />}
-            {  searchValue && searchSuggestedFriendsResult.length> 0 && searchSuggestedFriendsResult.map((friend: any, i: number) =>(
-            <div
-              key={i}
-              className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
-            >
-              <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold">
-                {friend.name[0]}
-              </div>
-              <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
-                <h1 className="text-lg font-bold">{friend.name}</h1>
-                <div className="flex gap-3 mt-1 md:mt-0">
-            <Popup title="send Friend Request"
-            onBtnClick={()=>dispatch(sendFriendRequestAction(friend.id))}
-            loading={loading}
-            className="text-green-500"/>
-                </div>
-              </div>
-            </div>
-            ))}
-            {searchValue && searchSuggestedFriendsResult.length == 0 && <NoData title="No Suggested friends"/>}
+            <FriendSuggestions />
           </div>
         </div>
         <div
@@ -342,30 +236,7 @@ loading={sentFrndReqLoading}/>}
           </div>
 
           <div className="overflow-y-auto h-full">
-            {!searchValue &&  <Friends />}
-            {searchValue && searchFriendsResult.length >0 && searchFriendsResult.map((item: any, i: number) =>(
-            <div
-              key={i}
-              className="flex px-4 py-2 border-slate-400 border-b-2 items-center"
-            >
-              <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold">
-                {item.friend_details.name[0]}
-              </div>
-              <div className="ml-5 flex md:flex-col justify-center gap-6 md:gap-1">
-                <h1 className="text-lg font-bold">
-                  {item.friend_details.name}
-                </h1>
-                <div className="flex gap-3 mt-1 md:mt-0">
-                  <Popup
-                    title="Remove Friend" onBtnClick={() => dispatch(removeFriendAction(item.friend_id))}
-                    loading={loading}
-                    className="font-medium text-red-600"
-                    />
-                  </div>
-              </div>
-            </div>
-            ))}
-            {searchValue && searchFriendsResult.length == 0 && <NoData title="No Friends"/>}
+            <Friends />
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import Loader from "./Loader"
 
 type NoDataProps ={
   title: string;
-  loading:boolean;
+  loading?:boolean;
 }
 const NoData:FC<NoDataProps>=(props)=>{
   if (props.loading) {

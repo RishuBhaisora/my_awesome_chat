@@ -6,11 +6,11 @@ import { friendsListSelector,
         friendsListLoadingSelector,
         removeFriendLoadingSelector,
         removeFriendSuccessSelector,
-       removeFriendErrorSelector} from "../../redux/selectors/friendshipSelector";
+       removeFriendErrorSelector,
+       friendSearchQuerySelector} from "../../redux/selectors/friendshipSelector";
 import Popup from "../../shared-resources/components/Popup"
 import {toastService} from "../../services/ToastService";
 import NoData from "../../shared-resources/components/NoData";
-
 
 
 const Friends: FC = () => {
@@ -21,6 +21,9 @@ const Friends: FC = () => {
   const loading=useSelector(removeFriendLoadingSelector)
   const error=useSelector(removeFriendErrorSelector)
   const message=useSelector(removeFriendSuccessSelector)
+  const friendSearchQuery=useSelector(friendSearchQuerySelector)
+
+console.log(friendSearchQuery)
 
   useEffect(()=>{
     dispatch(getFriendListAction())
@@ -51,8 +54,10 @@ const Friends: FC = () => {
 
   return (
     <>
-      {!friendListLoading && friendList.length==0 && <NoData title="No Friends Yet"
-                                 loading={friendListLoading}/>}
+      {!friendListLoading && friendList.length==0 &&<> <NoData title="No Friends Yet"
+  loading={friendListLoading}/>
+      <h1>{}</h1>
+      </>}
     {friendList.map((item: any, i: number) => (
         <div
           key={i}
@@ -75,7 +80,6 @@ const Friends: FC = () => {
           </div>
         </div>
       ))}
-
       </>
   );
 }
