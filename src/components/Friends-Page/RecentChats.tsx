@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { recentChatsSelector } from "../../redux/selectors/chatSelectors";
+import { recentChatsLoadingSelector, recentChatsSelector } from "../../redux/selectors/chatSelectors";
 import { getRecentChatsAction } from "../../redux/actions/chatActions";
 import { useNavigate, useParams } from "react-router";
 import { friendsListSelector } from "../../redux/selectors/friendshipSelector";
@@ -10,11 +10,17 @@ const RecentChats: FC = () => {
   const navigate = useNavigate();
   const friendList = useSelector(friendsListSelector);
   const recentChats = useSelector(recentChatsSelector);
+  const loading = useSelector(recentChatsLoadingSelector);
   const { friend_id } = useParams();
+  console.log(loading);
 
   useEffect(() => {
-    if (!friend_id) {
-      let id = "no-data";
+    dispatch(getRecentChatsAction());
+  }, []);
+
+  useEffect(() => {
+    let id = "no-data";
+    if ((!friend_id || friend_id === id) && !loading) {
       if (recentChats.length) {
         id = recentChats[0].friend_id;
       } else if (friendList.length) {
@@ -22,11 +28,8 @@ const RecentChats: FC = () => {
       }
       navigate(`/user/friends/message/${id}`);
     }
-  }, [recentChats, friendList]);
+  }, [recentChats, friendList, loading]);
 
-  useEffect(() => {
-    dispatch(getRecentChatsAction());
-  }, []);
 
   return (
     <>
