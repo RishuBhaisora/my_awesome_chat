@@ -10,7 +10,7 @@ const FriendsPage: FC = memo(() => {
       <div className="md:flex hidden">
         <ResponsiveContainer className="flex">
           <FriendList/>
-          <MessageBox />
+          <MessageBox/>
         </ResponsiveContainer>
       </div>
       <div className="md:hidden flex">

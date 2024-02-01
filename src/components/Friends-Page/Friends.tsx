@@ -2,9 +2,11 @@ import { FC, memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFriendListAction, removeFriendAction } from "../../redux/actions/friendshipAction";
 import { friendsListSelector } from "../../redux/selectors/friendshipSelector";
+import { useNavigate } from "react-router";
 
 const Friends: FC = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const friendList = useSelector(friendsListSelector)
 
   useEffect(()=>{
@@ -28,6 +30,9 @@ const Friends: FC = () => {
             <div className="flex gap-3 mt-1 md:mt-0">
               <button onClick={() => dispatch(removeFriendAction(item.friend_id))} className="font-medium text-red-600">
                 Remove friend
+              </button>
+              <button onClick={() => navigate(`/user/friends/message/${item.friend_id}`)} className="font-medium text-green-600">
+                Start Chat
               </button>
             </div>
           </div>
