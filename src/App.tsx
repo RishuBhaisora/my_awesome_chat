@@ -88,7 +88,7 @@ function App() {
                 element={<FriendList/>}
               />
               <Route
-                path="/user/friends/message/:id"
+                path="/user/friends/message/:friend_id"
                 element={<MessageBox />}
               />
             </Route>
