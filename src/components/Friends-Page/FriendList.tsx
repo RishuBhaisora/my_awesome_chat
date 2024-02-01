@@ -5,12 +5,12 @@ import cx from "classnames";
 import Menu from "../../shared-resources/components/Menu";
 import DottedMenu from "../../shared-resources/icons/DottedMenu";
 import Friends from "./Friends";
+import RecentChats from "./RecentChats";
 const searchOptions = [
   { key: "recentChats", value: "Recent Chats" },
   { key: "friends", value: "Friends" },
 ];
 const FriendList: FC= memo(() => {
-  const dispatch = useDispatch();
   const [searchFor, setSearchFor] = useState("recentChats");
   const [open, setOpen] = useState(false);
 
@@ -61,7 +61,7 @@ const FriendList: FC= memo(() => {
           </div>
 
           <div className="overflow-y-auto h-full">
-            <Friends/>
+            <RecentChats/>
           </div>
         </div>
         <div

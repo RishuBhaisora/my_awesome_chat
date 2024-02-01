@@ -1,19 +1,18 @@
 import { FC, memo } from "react";
-import Avatar from "../../../../shared-resources/avatar/Avatar";
 import { NodeIndexOutlined } from "@ant-design/icons";
 
-type HeaderMessageBoxProps = {};
-
-const HeaderMessageBox: FC<HeaderMessageBoxProps> = (HeaderMessageBoxProps) => {
+interface Props {
+  name: string;
+}
+const HeaderMessageBox: FC<Props> = ({ name }) => {
   return (
     <div className="flex items-start justify-between  md:mx-8 py-4 md:py-6 border-b-2 border-slate-400 md:relative fixed bg-white md:bottom-0 md:top-[0px] w-full md:w-auto mx-0  p-[15px] md:p-0 ">
       <div className="flex space-x-6">
-        <Avatar
-          size="large"
-          src="https://www.whatsappimages.in/wp-content/uploads/2021/06/HD-New-Beautiful-Unique-Profile-Images-Pictures.gif"
-        />
+        <div className="flex justify-center items-center h-12 w-12 rounded-full bg-yellow-300 text-xl text-white font-bold">
+          {name[0]}
+        </div>
         <div>
-          <h3 className="font-bold">{"Ramesh Khan"}</h3>
+          <h3 className="font-bold">{name}</h3>
           <h6 className="font-light">{"online"}</h6>
         </div>
       </div>
