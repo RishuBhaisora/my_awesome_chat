@@ -22,17 +22,7 @@ const MessageBox = () => {
   };
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        fetchData();
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
     fetchData();
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
   }, [friend_id]);
 
   return (

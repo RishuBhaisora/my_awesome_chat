@@ -26,9 +26,7 @@ export function* sendMessageSaga(action: {
   payload: SendMessagePayload;
 }): any {
   try {
-    const token = localStorage.getItem("token") || ""
-    const { data } = yield call(chatService.sendMessage, action.payload, token);
-    yield put(sendMessageCompletedAction(data));
+    yield call(chatService.sendMessage, action.payload);
   } catch (e: any) {
     const error = getErrorMessage(e)
     console.warn(error)
