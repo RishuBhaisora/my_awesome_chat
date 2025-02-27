@@ -12,7 +12,6 @@ const RecentChats: FC = () => {
   const recentChats = useSelector(recentChatsSelector);
   const loading = useSelector(recentChatsLoadingSelector);
   const { friend_id } = useParams();
-  console.log(loading);
 
   useEffect(() => {
     dispatch(getRecentChatsAction());
@@ -29,6 +28,8 @@ const RecentChats: FC = () => {
       navigate(`/user/friends/message/${id}`);
     }
   }, [recentChats, friendList, loading]);
+
+  console.log(friendList);
 
 
   return (

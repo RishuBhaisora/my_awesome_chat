@@ -2,14 +2,14 @@ import { Typography } from "antd";
 import { FC, memo, useEffect, useRef} from "react";
 import "./Messages.scss";
 import { useHeight } from "../../../../hooks/useHeight";
-import { useWidth } from "../../../../hooks/useWidth";
-import { useSelector } from "react-redux";
-import { userFriendChatSelector } from "../../../../redux/selectors/chatSelectors";
+import { useWidth } from "../../../../hooks/useWidth"
 
-const Messages: FC = () => {
+interface Props {
+  userFriendChat: any;
+}
+const Messages: FC<Props> = ({userFriendChat}) => {
   const height = useHeight();
   const width = useWidth();
-  const userFriendChat = useSelector(userFriendChatSelector)
   const messages = userFriendChat?.messages
   const containerRef = useRef(null);  
 

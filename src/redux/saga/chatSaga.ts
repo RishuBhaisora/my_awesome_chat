@@ -7,16 +7,22 @@ import {
 import { getErrorMessage } from "../../utils/reduxUtils";
 import { ChatPayload, SendMessagePayload } from "../../modals/chatModals";
 import { chatService } from "../../services/ChatService";
-import { getRecentChatsCompletedAction, getRecentChatsErrorAction, getUserFriendMessagesCompletedAction, getUserFriendMessagesErrorAction, sendMessageCompletedAction, sendMessageErrorAction } from "../actions/chatActions";
+import {
+  getRecentChatsCompletedAction,
+  getRecentChatsErrorAction,
+  getUserFriendMessagesCompletedAction,
+  getUserFriendMessagesErrorAction,
+  sendMessageErrorAction,
+} from "../actions/chatActions";
 
 export function* getRecentChatsSaga(): any {
   try {
-    const token = localStorage.getItem("token") || ""
+    const token = localStorage.getItem("token") || "";
     const { data } = yield call(chatService.getRecentChats, token);
     yield put(getRecentChatsCompletedAction(data));
   } catch (e: any) {
-    const error = getErrorMessage(e)
-    console.warn(error)
+    const error = getErrorMessage(e);
+    console.warn(error);
     yield put(getRecentChatsErrorAction(error));
   }
 }
@@ -28,8 +34,8 @@ export function* sendMessageSaga(action: {
   try {
     yield call(chatService.sendMessage, action.payload);
   } catch (e: any) {
-    const error = getErrorMessage(e)
-    console.warn(error)
+    const error = getErrorMessage(e);
+    console.warn(error);
     yield put(sendMessageErrorAction(error));
   }
 }
@@ -39,13 +45,17 @@ export function* getUserFriendMessagesSaga(action: {
   payload: ChatPayload;
 }): any {
   try {
-    const token = localStorage.getItem("token") || ""
-    const { data } = yield call(chatService.userFriendMessages, action.payload, token);
+    const token = localStorage.getItem("token") || "";    
+    const { data } = yield call(
+      chatService.userFriendMessages,
+      action.payload,
+      token
+    );
     yield put(getUserFriendMessagesCompletedAction(data));
   } catch (e: any) {
-    const error = getErrorMessage(e)
-    console.warn(error)
-    yield put(getUserFriendMessagesErrorAction(error))
+    const error = getErrorMessage(e);
+    console.warn(error);
+    yield put(getUserFriendMessagesErrorAction(error));
   }
 }
 

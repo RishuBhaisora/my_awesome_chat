@@ -8,26 +8,26 @@ import {
   GET_RECENT_CHATS_COMPLETED,
   GET_RECENT_CHATS_ERROR,
   SEND_MESSAGE,
-  SEND_MESSAGE_COMPLETED,
   SEND_MESSAGE_ERROR,
+  UPDATE_USER_FRIEND_CHAT,
 } from "../actions/actionConstants";
 
 export interface ChatState {
   recentChatsLoading: boolean;
-  recentChats: any[]
-  recentChatsError?: string
-  sendMessageLoading: boolean
-  sendMessageError?:string
-  getUserFriendMessagesLoading: boolean
-  getUserFriendMessagesError?: string
-  userFriendChat?: any
+  recentChats: any[];
+  recentChatsError?: string;
+  sendMessageLoading: boolean;
+  sendMessageError?: string;
+  getUserFriendMessagesLoading: boolean;
+  getUserFriendMessagesError?: string;
+  userFriendChats?: { [id: string]: any };
 }
 
 const initialState: ChatState = {
   recentChatsLoading: false,
   sendMessageLoading: false,
   getUserFriendMessagesLoading: false,
-  recentChats: []
+  recentChats: [],
 };
 
 export const chatReducer: Reducer<ChatState> = (
@@ -54,9 +54,13 @@ export const chatReducer: Reducer<ChatState> = (
         draft.sendMessageLoading = true;
         break;
       }
-      case SEND_MESSAGE_COMPLETED: {
+      case UPDATE_USER_FRIEND_CHAT: {
+        const chat = action.payload.chat;
+        draft.userFriendChats = {
+          ...draft.userFriendChats,
+          [chat.friend_id]: chat,
+        };
         draft.sendMessageLoading = false;
-        draft.userFriendChat = action.payload.chat
         break;
       }
       case SEND_MESSAGE_ERROR: {
@@ -68,8 +72,12 @@ export const chatReducer: Reducer<ChatState> = (
         draft.getUserFriendMessagesLoading = true;
         break;
       }
-      case GET_USER_FRIEND_MESSAGES_COMPLETED: { 
-        draft.userFriendChat = action.payload.chat  
+      case GET_USER_FRIEND_MESSAGES_COMPLETED: {
+        const chat = action.payload.chat;
+        draft.userFriendChats = {
+          ...draft.userFriendChats,
+          [chat.friend_id]: chat,
+        };
         draft.getUserFriendMessagesLoading = false;
         break;
       }

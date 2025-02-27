@@ -36,7 +36,7 @@ export const getUserFriendMessagesErrorSelector = createSelector(
   (chatState) => chatState.getUserFriendMessagesError
 );
 
-export const userFriendChatSelector = createSelector(
+export const userFriendChatsSelector = createSelector(
   [chatSelector],
-  (chatState) => chatState.userFriendChat
+  (chatState) => chatState.userFriendChats
 );
