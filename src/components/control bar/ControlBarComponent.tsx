@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../redux/actions/authActions";
 import DrawerCard from "./DrawerCard";
 import { loggedInUserSelector } from "../../redux/selectors/authSelectors";
+import { SocketService } from "../../socket";
 
 const ControlBarComponent = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const ControlBarComponent = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logoutAction());
+    SocketService.disconnect();
   };
 
   return (

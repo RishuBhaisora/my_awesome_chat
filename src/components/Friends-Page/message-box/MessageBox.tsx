@@ -7,13 +7,14 @@ import { useWidth } from "../../../hooks/useWidth";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserFriendMessagesAction } from "../../../redux/actions/chatActions";
-import { userFriendChatSelector } from "../../../redux/selectors/chatSelectors";
+import { userFriendChatsSelector } from "../../../redux/selectors/chatSelectors";
 
 const MessageBox = () => {
   const width = useWidth();
   const { friend_id } = useParams();
   const dispatch = useDispatch();
-  const userFriendChat = useSelector(userFriendChatSelector);
+  const userFriendChats = useSelector(userFriendChatsSelector);  
+  const friendChat = userFriendChats?.[friend_id || ""];
 
   const fetchData = () => {
     if (friend_id && friend_id !== "no-data") {
@@ -22,17 +23,7 @@ const MessageBox = () => {
   };
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        fetchData();
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
     fetchData();
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
   }, [friend_id]);
 
   return (
@@ -43,15 +34,15 @@ const MessageBox = () => {
           { "bottom-shadow": width > 768 }
         )}
       >
-        {friend_id === "no-data" || !userFriendChat ? (
+        {friend_id === "no-data" || !friendChat ? (
           <div className="flex justify-center items-center h-[100vh]">
             <p className="font-medium">No friends to chat</p>
           </div>
         ) : (
           <>
-            <HeaderMessageBox name={userFriendChat.friend_details.name} />
-            <Messages />
-            <BottomMessageBox friendId={userFriendChat.friend_id} />
+            <HeaderMessageBox name={friendChat.friend_details.name} />
+            <Messages userFriendChat={friendChat} />
+            <BottomMessageBox friendId={friendChat.friend_id} />
           </>
         )}
       </div>

@@ -22,6 +22,7 @@ import { loginAction } from "./redux/actions/authActions";
 import AuthPage from "./pages/AuthPage";
 import Loader from "./shared-resources/components/Loader";
 import HomePage from "./components/home-page/HomePage";
+import { SocketService } from "./socket";
 
 const authPageUrls = ["/login", "/signUp", "/forgetPassword", "/resetPassword"];
 
@@ -60,10 +61,16 @@ function App() {
     setLoading(false);
   }, [loggedInUser, location.pathname, token]);
 
+  useEffect(() => {
+    if (loggedInUser) {
+      SocketService.connect();
+    }
+  }, [loggedInUser]);
+
   if (loading || loginLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader/>
+        <Loader />
       </div>
     );
   }
@@ -71,22 +78,13 @@ function App() {
     <Routes>
       {loggedInUser ? (
         <>
-        <Route
-            path="/"
-            element={<Navigate to={"/home"} />}
-          />
+          <Route path="/" element={<Navigate to={"/home"} />} />
           <Route path="/" element={<MainLayout />}>
-          <Route path="/home" element={<HomePage />}/>
+            <Route path="/home" element={<HomePage />} />
             <Route path="/user/settings" element={<SettingsPage />} />
             <Route path="/user/notification" element={<NotificationPage />} />
-            <Route
-              path="/user/friends"
-              element={<FriendsPage/>}
-            >
-              <Route
-                path="/user/friends/message"
-                element={<FriendList/>}
-              />
+            <Route path="/user/friends" element={<FriendsPage />}>
+              <Route path="/user/friends/message" element={<FriendList />} />
               <Route
                 path="/user/friends/message/:friend_id"
                 element={<MessageBox />}
@@ -96,7 +94,8 @@ function App() {
           <Route path="*" element={<Navigate to={redirectUrl ?? "/"} />} />
         </>
       ) : (
-        <Route path="*" element={<AuthPage />}/>      )}
+        <Route path="*" element={<AuthPage />} />
+      )}
     </Routes>
   );
 }

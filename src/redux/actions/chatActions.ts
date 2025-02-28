@@ -5,10 +5,10 @@ import {
   GET_USER_FRIEND_MESSAGES_ERROR,
   GET_RECENT_CHATS,
   GET_RECENT_CHATS_COMPLETED,
-  GET_RECENT_CHATS_ERROR,
+  GET_RECENT_CHATS_ERROR, 
   SEND_MESSAGE,
-  SEND_MESSAGE_COMPLETED,
   SEND_MESSAGE_ERROR,
+  UPDATE_USER_FRIEND_CHAT,
 } from "./actionConstants";
 
 export const getRecentChatsAction = () => ({
@@ -30,8 +30,8 @@ export const sendMessageAction = (payload: SendMessagePayload) => ({
   payload,
 });
 
-export const sendMessageCompletedAction = (payload: any) => ({
-  type: SEND_MESSAGE_COMPLETED,
+export const updateUserFriendChatAction = (payload: any) => ({
+  type: UPDATE_USER_FRIEND_CHAT,
   payload,
 });
 
