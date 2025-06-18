@@ -29,9 +29,6 @@ const RecentChats: FC = () => {
     }
   }, [recentChats, friendList, loading]);
 
-  console.log(friendList);
-
-
   return (
     <>
       {recentChats.map((item: any, i: number) => (
