@@ -12,6 +12,7 @@ import { logoutAction } from "../../redux/actions/authActions";
 import DrawerCard from "./DrawerCard";
 import { loggedInUserSelector } from "../../redux/selectors/authSelectors";
 import { SocketService } from "../../socket";
+import { unseenNotificationsCountSelector } from "../../redux/selectors/notificationsSelectors";
 
 const ControlBarComponent = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const ControlBarComponent = () => {
   const location = useLocation();
   const path = location.pathname;
   const user = useSelector(loggedInUserSelector);
+  const unseenNotificationsCount = useSelector(
+    unseenNotificationsCountSelector
+  );
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -54,14 +58,39 @@ const ControlBarComponent = () => {
             selected={path === "/user/notification"}
             onClick={() => navigate("/user/notification")}
           >
-            <NotificationOutlined className="text-white md:text-2xl text-lg" />
+            <div style={{ position: "relative" }}>
+              <NotificationOutlined className="text-white md:text-2xl text-lg" />
+              {unseenNotificationsCount > 0 && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-6px",
+                    left: "25px",
+                    background: "#f5222d",
+                    color: "white",
+                    borderRadius: "50%",
+                    padding: "0 6px",
+                    fontSize: 12,
+                    minWidth: 18,
+                    height: 18,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 700,
+                    boxShadow: "0 0 0 2px #1A66FF",
+                  }}
+                >
+                  {unseenNotificationsCount}
+                </span>
+              )}
+            </div>
           </DrawerCard>
-          <DrawerCard
+          {/* <DrawerCard
             selected={path === "/user/settings"}
             onClick={() => navigate("/user/settings")}
           >
             <SettingOutlined className="text-white md:text-2xl text-lg" />
-          </DrawerCard>
+          </DrawerCard> */}
         </div>
 
         <LogoutOutlined

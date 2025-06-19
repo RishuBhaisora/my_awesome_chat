@@ -14,6 +14,4 @@ const NotificationRow: FC<NotificationRowProps> = (props) => {
   );
 };
 
-NotificationRow.defaultProps = {};
-
 export default memo(NotificationRow);

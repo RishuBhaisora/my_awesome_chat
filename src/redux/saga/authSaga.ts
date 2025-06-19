@@ -21,6 +21,7 @@ import {
 } from "../actions/authActions";
 import { authService } from "../../services/AuthServices";
 import { getErrorMessage,getSignupErrorMessage } from "../../utils/reduxUtils";
+import { getNotificationsAction } from "../actions/notificationsAction";
 
 export function* loginSaga(action: {
   type: "LOGIN";
@@ -30,6 +31,7 @@ export function* loginSaga(action: {
     const { data } = yield call(authService.login, action.payload);
     localStorage.setItem("token", data.token);
     yield put(loginCompletedAction(data));
+    yield put(getNotificationsAction());
   } catch (e: any) {
     const error = getErrorMessage(e)
     console.warn(error)

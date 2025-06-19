@@ -8,7 +8,6 @@ import {
 import FriendList from "./components/Friends-Page/FriendList";
 import FriendsPage from "./components/Friends-Page/FriendsPage";
 import MessageBox from "./components/Friends-Page/message-box/MessageBox";
-import SettingsPage from "./components/settings-page/SettingsPage";
 import MainLayout from "./pages/MainLayout";
 import NotificationPage from "./components/notification-page/NotificationPage";
 import { useSelector, useDispatch } from "react-redux";
@@ -81,7 +80,7 @@ function App() {
           <Route path="/" element={<Navigate to={"/home"} />} />
           <Route path="/" element={<MainLayout />}>
             <Route path="/home" element={<HomePage />} />
-            <Route path="/user/settings" element={<SettingsPage />} />
+            {/* <Route path="/user/settings" element={<SettingsPage />} /> */}
             <Route path="/user/notification" element={<NotificationPage />} />
             <Route path="/user/friends" element={<FriendsPage />}>
               <Route path="/user/friends/message" element={<FriendList />} />

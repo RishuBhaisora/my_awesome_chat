@@ -2,6 +2,7 @@ import { io, Socket } from "socket.io-client";
 import store from "../redux/store";
 import { updateUserFriendChatAction } from "../redux/actions/chatActions";
 import { BASE_URL } from "../services/constants";
+import { setNotificationsAction } from "../redux/actions/notificationsAction";
 
 export class SocketService {
   private static socket: Socket | null;
@@ -61,6 +62,10 @@ export class SocketService {
 
     this.socket?.on("message", (data) => {
       store.dispatch(updateUserFriendChatAction(data));
+    });
+
+    this.socket?.on("notification", (data) => {
+      store.dispatch(setNotificationsAction(data.notifications));
     });
 
     this.socket?.on("disconnect", () => {
