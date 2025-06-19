@@ -41,7 +41,7 @@ export const notificationReducer: Reducer<NotificationState> = (
       case SET_NOTIFICATIONS: {
         draft.notificationsLoading = false;
         draft.notificationsError = undefined;
-        draft.notifications = action.payload;
+        draft.notifications = [...action.payload].reverse();
         break;
       }
 

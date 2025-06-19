@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
-import BottomMessageBox from "./meassage-box-components/BottomMessageBox";
-import HeaderMessageBox from "./meassage-box-components/HeaderMessageBox";
-import Messages from "./meassage-box-components/Messages";
+import BottomMessageBox from "./message-box-components/BottomMessageBox";
+import HeaderMessageBox from "./message-box-components/HeaderMessageBox";
+import Messages from "./message-box-components/Messages";
 import cx from "classnames";
 import { useWidth } from "../../../hooks/useWidth";
 import { useParams } from "react-router";
